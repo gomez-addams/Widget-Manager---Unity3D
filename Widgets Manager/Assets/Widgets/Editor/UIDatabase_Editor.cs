@@ -24,6 +24,16 @@ public class UIDatabase_Editor : EditorWindow
     private WidgetDatabase m_gameWidgets;
     private Vector2 m_scrollPos;
 
+
+
+    [MenuItem("Tools/Widget/Tutorial")]
+    public static void Tutorial()
+    {
+        string url = "https://eeprogrammer.wordpress.com/2016/03/06/unity3d-widgetui-manager/";
+        Application.OpenURL(url);
+        Debug.Log(url);
+    }
+
     [MenuItem("Tools/Widget/Widget Editor %#w")]
     public static void Init()
     {
