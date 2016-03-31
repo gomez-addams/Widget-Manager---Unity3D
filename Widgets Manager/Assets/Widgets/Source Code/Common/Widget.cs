@@ -49,10 +49,14 @@ namespace eeGames.Widget
             get
             {
                 if (m_tween == null)
-                    m_tween = GetComponent<WidgetTween>().TweenData;
+                {
+                    var wTween = GetComponent<WidgetTween>();
+                    if (wTween != null) m_tween = wTween.TweenData;
+                }
+
                 return m_tween;
             }
-            set   {  m_tween = value; }
+            set { m_tween = value; }
         }
 
         /// <summary>

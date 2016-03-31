@@ -25,6 +25,7 @@ namespace eeGames.Widget
             else m_stack = new List<Widget>();
         }
 
+
         #region Utility Methods
         LTDescr m_handler = null;
         /// <summary>
@@ -154,7 +155,7 @@ namespace eeGames.Widget
 
       
         /// <summary>
-        /// Delete All Widgets
+        /// Delete All Widgets, Even deletes pooled widgets
         /// </summary>
         public void UnWindStack()
         {
@@ -163,6 +164,7 @@ namespace eeGames.Widget
                 Destroy(m_pooledWidgets[i].gameObject);
             }
             m_stack.Clear();
+            m_pooledWidgets.Clear();
         }
 
         /// <summary>

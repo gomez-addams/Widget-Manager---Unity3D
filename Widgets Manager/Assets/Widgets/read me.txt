@@ -1,1 +1,2 @@
+Widgets/Example/Basic contains demo scene for getting start see setup guide 
 note : don't put Widgets folder under any folder

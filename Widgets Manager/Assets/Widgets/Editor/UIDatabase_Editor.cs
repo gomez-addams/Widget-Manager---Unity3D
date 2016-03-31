@@ -39,7 +39,9 @@ public class UIDatabase_Editor : EditorWindow
     {
         UIDatabase_Editor window = EditorWindow.GetWindow<UIDatabase_Editor>();
         window.minSize = new Vector2(800, 400);
-        window.titleContent = new GUIContent("Widget Editor", Resources.Load<Texture2D>("icon"));
+
+      //  window.titleContent = new GUIContent("Widget Editor", Resources.Load<Texture2D>("icon")); // not avaliable in unity 5.0
+        window.title = ("Widget Editor");
         window.Show();
     }
 
@@ -270,7 +272,7 @@ public class UIDatabase_Editor : EditorWindow
 
     public static class uGUITools
     {
-        [MenuItem("Tools/Widget/Anchors to Corners #A")]
+        [MenuItem("Tools/Widget/Anchors to Corners %#A")]
         static void AnchorsToCorners()
         {
             foreach (Transform transform in Selection.transforms)
