@@ -823,6 +823,30 @@ public abstract class CommonActorElements
     #endregion
 
 
+
+
+    #region PingPong
+    private bool m_pingPongPrevious = false;
+    private bool m_pingPong = false;
+
+    public bool PingPong
+    {
+        get { return m_pingPong; }
+        set
+        {
+            if (value != m_pingPongPrevious)
+            {
+                m_pingPong = value;
+                m_pingPongPrevious = value;
+
+                if (m_pingPongChanged != null)
+                    m_pingPongChanged(value);
+            }
+        }
+    }
+    protected System.Action<bool> m_pingPongChanged;
+    #endregion
+
     #region Tween Count
     private int m_tweenCountPrev = 0;
     private int m_tweenCount = 0;
@@ -918,7 +942,10 @@ public abstract class CommonActorElements
             EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
 //            GUILayout.Label("Count", GUILayout.Width(130));
 //            TweenCount = int.Parse(EditorGUILayout.TextField(TweenCount.ToString()));
-            TweenCount = EditorGUILayout.IntField("Count: ", TweenCount, GUILayout.ExpandWidth(true));
+
+            
+            PingPong = GUILayout.Toggle(PingPong, "Once", GUILayout.Width(150));
+            if(!PingPong) TweenCount = EditorGUILayout.IntField("Count: ", TweenCount, GUILayout.ExpandWidth(true));
             EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.EndVertical();
@@ -977,12 +1004,12 @@ public class ActorVec3Editor : CommonActorElements
 
    
     public void Init(string title, ActingType tType, float tweenTime, float delayTweenTime,
-        bool isEnable, bool isAutoPlay, bool isLoop, LeanTweenType tweenType, LoopType loopType,
+        bool isEnable, bool isAutoPlay, bool isLoop, bool isPingPong, LeanTweenType tweenType, LoopType loopType,
         int tweenCount, Vector4 toVec, Vector4 fromVec, System.Action<float> tweenTimeChanged,
         System.Action<float> delayTimeChanged, System.Action<bool> IsEnableChanged, System.Action<bool> autoPlayChanged,
         System.Action<bool> loopChanged, System.Action<LeanTweenType> tweenTypeChanged,
         System.Action<LoopType> loopTypeChanged, System.Action<int> countChanged, System.Action<Vector4> toChanged,
-        System.Action<Vector4> fromChanged, System.Action<ActingType> actingTypeChanged)
+        System.Action<Vector4> fromChanged, System.Action<ActingType> actingTypeChanged, System.Action<bool> IsPingPongChanged)
     {
         Title = title;
         TweenTime = tweenTime;
@@ -995,7 +1022,8 @@ public class ActorVec3Editor : CommonActorElements
         TweenCount = tweenCount;
         To = toVec;
         From = fromVec;
-  
+        PingPong = isPingPong;
+
         m_tweenTimeChanged = tweenTimeChanged;
         m_tweenDelayTimeChanged = delayTimeChanged;
         m_autoPlayChanged = autoPlayChanged;
@@ -1006,6 +1034,7 @@ public class ActorVec3Editor : CommonActorElements
         m_toChanged = toChanged;
         m_fromChanged = fromChanged;
         m_actingTypeChanged = actingTypeChanged;
+        m_pingPongChanged = IsPingPongChanged;
 
         m_enableChanged = IsEnableChanged;
         ActingType = tType;
@@ -1015,6 +1044,7 @@ public class ActorVec3Editor : CommonActorElements
     private void DrawColorActor() 
     {
         EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+       
   //      GUI.color = Color.cyan;
         if (GUILayout.Button("From", GUILayout.Width(75)))
         {
@@ -1044,7 +1074,13 @@ public class ActorVec3Editor : CommonActorElements
     }
     private void DrawVec3Actor() 
     {
+        GUI.color = Color.yellow;
+        if (LoopType == eeGames.Actor.LoopType.StartOver)
+            EditorGUILayout.HelpBox("Now this tween only works for Z-axis rotation, for clockwise rotation set 1 in last box(Z) of from button, for anti-clockwise rotation set -1 in last box(Z) of from button", MessageType.Info, true);
+        GUI.color = Color.white;
+
         EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+        
         if (GUILayout.Button("From", GUILayout.Width(75)))
         {
             switch (ActingType)

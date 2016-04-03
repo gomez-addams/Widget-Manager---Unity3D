@@ -37,7 +37,7 @@ public class Actor_Editor : Editor
         m_actor = new ActorVec3Editor();
         var sActorData = Target.ActorData;
         m_actor.Init(Target.Type.ToString() + " Actor", Target.Type, sActorData.Time, sActorData.DelayTime, sActorData.IsActive,
-            sActorData.IsAutoPlay, sActorData.IsLoop, sActorData.TweenType, sActorData.LoopType, sActorData.TweenCount,
+            sActorData.IsAutoPlay, sActorData.IsLoop, sActorData.IsOnce, sActorData.TweenType, sActorData.LoopType, sActorData.TweenCount,
             sActorData.To, sActorData.From,
             (val) =>
             {
@@ -82,6 +82,10 @@ public class Actor_Editor : Editor
             (val) => 
             {
                 Target.Type = val;
+            },
+            (val) =>
+            {
+                Target.ActorData.IsOnce = val;
             });
 
 

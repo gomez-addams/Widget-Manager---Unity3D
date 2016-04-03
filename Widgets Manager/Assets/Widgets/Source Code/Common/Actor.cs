@@ -25,20 +25,22 @@ namespace eeGames.Actor
         public ActorEvent OnStart;
         public ActorEvent OnStop;
 
-     
-        void Start() 
-        {
-            // here add auto play functionality
-            if (ActorData.IsAutoPlay) PerformActing();
-           
-        }
 
-    
+        void OnDisable() 
+        {
+            LeanTween.cancel(gameObject); 
+        }
+        void OnEnable() 
+        {
+            if (ActorData.IsAutoPlay) PerformActing();
+        }
        
+
          [ContextMenu("Perform Acting")]
         public void PerformActing()
         {
             if (!ActorData.IsActive) return;
+//            if (ActorData.IsActing) return;
             switch (Type)
             {
             
@@ -64,11 +66,21 @@ namespace eeGames.Actor
         {
             if (OnStart != null) OnStart.Invoke();
             var mainWindow = GetComponent<RectTransform>();
-            mainWindow.transform.localScale = ActorData.From;
-            LTDescr id = LeanTween.scale(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
+
+            Debug.Log("tween started");
+
+            if (!ActorData.IsOnce)
+            {
+                LTDescr id = LeanTween.scale(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.localScale = ActorData.From; ActorData.IsActing = true; });
+            }
+            else
+            {
+
+                LTDescr id = LeanTween.scale(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.localScale = ActorData.From; });
+            }
         }
 
-
+     
         private void DoPositionActing()
         {
 
@@ -97,12 +109,13 @@ namespace eeGames.Actor
             pos.y *= _height;
 
 
-            if (ActorData.IsLoop)
+            if (!ActorData.IsOnce) // TODO : actor moved to From position imediately (it should move to from position OnTweenStart)
             {
-                LTDescr id = LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
+                LTDescr id = LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { ActorData.IsActing = true; });
             }
             else
             {
+               
                 LTDescr id = LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
             }
 
@@ -116,8 +129,30 @@ namespace eeGames.Actor
             
             if (OnStart != null) OnStart.Invoke();
             var mainWindow = GetComponent<RectTransform>();
-            mainWindow.transform.rotation = Quaternion.Euler(ActorData.From);
-            LTDescr id = LeanTween.rotate(mainWindow.gameObject, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
+           
+           
+
+            if (ActorData.IsLoop )
+            {
+                Debug.Log("beep beep boop");
+                if ( ActorData.LoopType == LoopType.StartOver)
+                {
+                    // holly molly 
+                    Debug.Log("holy moly");
+                    LTDescr id = LeanTween.rotateAroundLocal(mainWindow, Vector3.forward, 360f * ActorData.From.z , ActorData.Time).setDelay(ActorData.DelayTime).setRepeat(-1).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
+                }
+                else
+                {
+                    Debug.Log("crap");
+                    LTDescr id = LeanTween.rotate(mainWindow.gameObject, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
+                }
+                
+            }
+            if (ActorData.IsOnce)
+            {
+
+                LTDescr id = LeanTween.rotate(mainWindow.gameObject, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopClamp(ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); });
+            }
         }
 
 
@@ -125,7 +160,7 @@ namespace eeGames.Actor
 
         private void DoColorActing()
         {
-
+            
             if (OnStart != null) OnStart.Invoke();
             var mainWindow = GetComponent<RectTransform>();
             
@@ -133,14 +168,22 @@ namespace eeGames.Actor
             var uiImg = GetComponent<Image>();
             if (uiImg != null)
             {
-                LTDescr id = LeanTween.color(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
+                if (ActorData.To.x != ActorData.From.x || ActorData.To.y != ActorData.From.y || ActorData.To.w != ActorData.From.w)
+                {
+                    uiImg.color = ActorData.From;
+                    LTDescr id = LeanTween.color(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
+                }
+                
             }
-
+            
             var canvasGroup = GetComponent<CanvasGroup>();
-         //   if (ActorData.To.z != ActorData.From.z)
+            canvasGroup.alpha = ActorData.From.z;
+            if (ActorData.To.z != ActorData.From.z)
             {
+               
                 // lets do the alpha business
-                LeanTween.value(mainWindow.gameObject, (alpha) => { canvasGroup.alpha = alpha; Debug.Log("here is alpha " + alpha); }, ActorData.From.z, ActorData.To.z, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
+               
+                LeanTween.alphaCanvas(canvasGroup, ActorData.To.z, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
             }
         }
         #endregion
@@ -153,11 +196,13 @@ namespace eeGames.Actor
     public class ActorData
     {
         public bool IsActive;
+        public bool IsActing;
         public float Time;
         public float DelayTime;
         public int TweenCount;
         public bool IsAutoPlay;
         public bool IsLoop;
+        public bool IsOnce;
         public LeanTweenType TweenType;
         public LoopType LoopType;
         public Vector4 From;
