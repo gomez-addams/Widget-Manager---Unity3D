@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 using System.Collections;
+using eeGames.Actor;
 
 [CustomEditor(typeof(WidgetTween), true), CanEditMultipleObjects]
 public class WidgetTween_Editor : Editor 
@@ -41,7 +42,7 @@ public class WidgetTween_Editor : Editor
         CustomButtonStyle buttonStyle = new CustomButtonStyle("Position Tween", btnUp, btnUp, null, 175);
 
         PositionTweenButton positionButton = new PositionTweenButton(buttonStyle);
-        positionButton.Initialize(TweenType.Position, Target, Target.TweenData.IsPosition, Target.TweenData.sPosition.Time, "",
+        positionButton.Initialize(ActingType.Position, Target, Target.TweenData.IsPosition, Target.TweenData.sPosition.Time, "",
             (val) =>
             {
                 Target.TweenData.IsPosition = val;
@@ -60,7 +61,7 @@ public class WidgetTween_Editor : Editor
         CustomButtonStyle sbuttonStyle = new CustomButtonStyle("Scale Tween", btnUp, btnUp, null, 175);
 
         PositionTweenButton scaleButton = new PositionTweenButton(sbuttonStyle);
-        scaleButton.Initialize(TweenType.Scale, Target, Target.TweenData.IsScale, Target.TweenData.sScale.Time, string.Empty,
+        scaleButton.Initialize(ActingType.Scale, Target, Target.TweenData.IsScale, Target.TweenData.sScale.Time, string.Empty,
             (val) =>
             {
                 Target.TweenData.IsScale = val;
@@ -79,7 +80,7 @@ public class WidgetTween_Editor : Editor
         CustomButtonStyle rbuttonStyle = new CustomButtonStyle("Rotation Tween", btnUp, btnUp, null, 175);
 
         PositionTweenButton rotationButton = new PositionTweenButton(rbuttonStyle);
-        rotationButton.Initialize(TweenType.Rotation, Target, Target.TweenData.IsRotation, Target.TweenData.sRotation.Time, string.Empty,
+        rotationButton.Initialize(ActingType.Rotation, Target, Target.TweenData.IsRotation, Target.TweenData.sRotation.Time, string.Empty,
             (val) =>
             {
                 Target.TweenData.IsRotation = val;

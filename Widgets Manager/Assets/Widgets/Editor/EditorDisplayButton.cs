@@ -1,13 +1,14 @@
-﻿using UnityEditor;
+﻿using eeGames.Actor;
+using UnityEditor;
 using UnityEngine;
 
 
-public enum TweenType
-{
-    Position,
-    Scale,
-    Rotation
-}
+//public enum ActingType
+//{
+//    Position,
+//    Scale,
+//    Rotation
+//}
 
 public class SubmitButtonStyle
 {
@@ -113,8 +114,6 @@ public class EditorDisplayButton
     { }
 }
 
-
-
 public class PositionTweenButton : EditorDisplayButton
 {
     #region Position Tween
@@ -162,7 +161,7 @@ public class PositionTweenButton : EditorDisplayButton
     }
     private System.Action<float> m_tweenTimeChanged;
     private WidgetTween m_widgetTween;
-    private TweenType m_type;
+    private ActingType m_type;
     #endregion
 
 
@@ -175,7 +174,7 @@ public class PositionTweenButton : EditorDisplayButton
     {
     }
 
-    public void Initialize(TweenType type, WidgetTween wTween, bool wTweens, float tweenTime, string tooltipText, System.Action<bool> positionChanged, System.Action<float> tweenTimeChanged)
+    public void Initialize(ActingType type, WidgetTween wTween, bool wTweens, float tweenTime, string tooltipText, System.Action<bool> positionChanged, System.Action<float> tweenTimeChanged)
     {
         PositionTween = wTweens;
 
@@ -407,7 +406,7 @@ public class PositionTweenButton : EditorDisplayButton
             {
                 switch (m_type)
                 {
-                    case TweenType.Position:
+                    case ActingType.Position:
                         var newPos = m_widgetTween.gameObject.transform.position; //.GetComponent<RectTransform>()
                         Debug.Log("Pos : " + newPos);
 
@@ -417,10 +416,10 @@ public class PositionTweenButton : EditorDisplayButton
 
                         m_widgetTween.TweenData.sPosition.From = newPos;
                         break;
-                    case TweenType.Scale:
+                    case ActingType.Scale:
                         m_widgetTween.TweenData.sScale.From = m_widgetTween.gameObject.transform.localScale;
                         break;
-                    case TweenType.Rotation:
+                    case ActingType.Rotation:
                         m_widgetTween.TweenData.sRotation.From = m_widgetTween.gameObject.transform.rotation.eulerAngles;
                         break;
 
@@ -431,7 +430,7 @@ public class PositionTweenButton : EditorDisplayButton
 
             switch (m_type)
             {
-                case TweenType.Position:
+                case ActingType.Position:
                     GUI.Button(lerpPositionXField, "X:" + (System.Math.Round(m_widgetTween.TweenData.sPosition.From.x, 2).ToString()));
                     GUI.color = Color.white;
 
@@ -442,7 +441,7 @@ public class PositionTweenButton : EditorDisplayButton
                     GUI.color = Color.white;
 
                     break;
-                case TweenType.Scale:
+                case ActingType.Scale:
                     GUI.Button(lerpPositionXField, "X:" + (System.Math.Round(m_widgetTween.TweenData.sScale.From.x, 2).ToString()));
                     GUI.color = Color.white;
 
@@ -452,7 +451,7 @@ public class PositionTweenButton : EditorDisplayButton
                     GUI.Button(lerpPositionZField, "Z:" + (System.Math.Round(m_widgetTween.TweenData.sScale.From.z, 2).ToString()));
                     GUI.color = Color.white;
                     break;
-                case TweenType.Rotation:
+                case ActingType.Rotation:
 
                     GUI.Button(lerpPositionXField, "X:" + (System.Math.Round(m_widgetTween.TweenData.sRotation.From.x, 2).ToString()));
                     GUI.color = Color.white;
@@ -478,7 +477,7 @@ public class PositionTweenButton : EditorDisplayButton
             {
                 switch (m_type)
                 {
-                    case TweenType.Position:
+                    case ActingType.Position:
                         var newPos = m_widgetTween.gameObject.transform.position;//.GetComponent<RectTransform>()
                         string[] dimension = UnityEditor.UnityStats.screenRes.Split('x');
                         newPos.x /= System.Int32.Parse(dimension[0]);
@@ -486,10 +485,10 @@ public class PositionTweenButton : EditorDisplayButton
 
                         m_widgetTween.TweenData.sPosition.To = newPos;
                         break;
-                    case TweenType.Scale:
+                    case ActingType.Scale:
                         m_widgetTween.TweenData.sScale.To = m_widgetTween.gameObject.transform.localScale;
                         break;
-                    case TweenType.Rotation:
+                    case ActingType.Rotation:
                         m_widgetTween.TweenData.sRotation.To = m_widgetTween.gameObject.transform.rotation.eulerAngles;
                         break;
 
@@ -499,7 +498,7 @@ public class PositionTweenButton : EditorDisplayButton
 
             switch (m_type)
             {
-                case TweenType.Position:
+                case ActingType.Position:
                     GUI.Button(lerpRotationXField, "X:" + (System.Math.Round(m_widgetTween.TweenData.sPosition.To.x, 2).ToString()));
                     GUI.color = Color.white;
 
@@ -510,7 +509,7 @@ public class PositionTweenButton : EditorDisplayButton
                     GUI.color = Color.white;
 
                     break;
-                case TweenType.Scale:
+                case ActingType.Scale:
                     GUI.Button(lerpRotationXField, "X:" + (System.Math.Round(m_widgetTween.TweenData.sScale.To.x, 2).ToString()));
                     GUI.color = Color.white;
 
@@ -520,7 +519,7 @@ public class PositionTweenButton : EditorDisplayButton
                     GUI.Button(lerpRotationZField, "Z:" + (System.Math.Round(m_widgetTween.TweenData.sScale.To.z, 2).ToString()));
                     GUI.color = Color.white;
                     break;
-                case TweenType.Rotation:
+                case ActingType.Rotation:
 
                     GUI.Button(lerpRotationXField, "X:" + (System.Math.Round(m_widgetTween.TweenData.sRotation.To.x, 2).ToString()));
                     GUI.color = Color.white;
@@ -549,7 +548,7 @@ public class PositionTweenButton : EditorDisplayButton
 
                 switch (m_type)
                 {
-                    case TweenType.Position:
+                    case ActingType.Position:
                         var newPos = m_widgetTween.gameObject.transform.position; //.GetComponent<RectTransform>()
                         string[] dimension = UnityEditor.UnityStats.screenRes.Split('x');
                         newPos.x /= System.Int32.Parse(dimension[0]);
@@ -557,10 +556,10 @@ public class PositionTweenButton : EditorDisplayButton
 
                         m_widgetTween.TweenData.ePosition = newPos;
                         break;
-                    case TweenType.Scale:
+                    case ActingType.Scale:
                         m_widgetTween.TweenData.eScale = m_widgetTween.gameObject.transform.localScale;
                         break;
-                    case TweenType.Rotation:
+                    case ActingType.Rotation:
                         m_widgetTween.TweenData.eRotation = m_widgetTween.gameObject.transform.rotation.eulerAngles;
                         break;
 
@@ -570,7 +569,7 @@ public class PositionTweenButton : EditorDisplayButton
 
             switch (m_type)
             {
-                case TweenType.Position:
+                case ActingType.Position:
                     GUI.Button(lerpScaleXField, "X:" + (System.Math.Round(m_widgetTween.TweenData.ePosition.x, 2).ToString()));
                     GUI.color = Color.white;
 
@@ -581,7 +580,7 @@ public class PositionTweenButton : EditorDisplayButton
                     GUI.color = Color.white;
 
                     break;
-                case TweenType.Scale:
+                case ActingType.Scale:
                     GUI.Button(lerpScaleXField, "X:" + (System.Math.Round(m_widgetTween.TweenData.eScale.x, 2).ToString()));
                     GUI.color = Color.white;
 
@@ -591,7 +590,7 @@ public class PositionTweenButton : EditorDisplayButton
                     GUI.Button(lerpScaleZField, "Z:" + (System.Math.Round(m_widgetTween.TweenData.eScale.z, 2).ToString()));
                     GUI.color = Color.white;
                     break;
-                case TweenType.Rotation:
+                case ActingType.Rotation:
 
                     GUI.Button(lerpScaleXField, "X:" + (System.Math.Round(m_widgetTween.TweenData.eRotation.x, 2).ToString()));
                     GUI.color = Color.white;
@@ -617,5 +616,691 @@ public class PositionTweenButton : EditorDisplayButton
             _prevTex = _activeTex;
             window.Repaint();
         }
+    }
+}
+
+
+
+//public enum LoopType
+//{
+//    PingPong,
+//    StartOver
+//}
+public abstract class CommonActorElements
+{
+
+    #region Enable
+    private bool m_enablePrevious = false;
+    private bool m_enablePlay = false;
+
+    public bool Enable
+    {
+        get { return m_enablePlay; }
+        set
+        {
+            if (value != m_enablePrevious)
+            {
+                m_enablePlay = value;
+                m_enablePrevious = value;
+
+                if (m_enableChanged != null)
+                    m_enableChanged(value);
+            }
+        }
+    }
+    protected System.Action<bool> m_enableChanged;
+    #endregion
+
+
+    #region Tween Time
+    private float m_tweenTimePrev = 0;
+    private float m_tweenTime = 0;
+    public float TweenTime
+    {
+        get { return m_tweenTime; }
+        set
+        {
+            if (value != m_tweenTimePrev)
+            {
+                m_tweenTime = value;
+                m_tweenTimePrev = value;
+
+                if (m_tweenTimeChanged != null)
+                    m_tweenTimeChanged(value);
+            }
+        }
+    }
+    protected System.Action<float> m_tweenTimeChanged;
+
+    #endregion
+
+
+
+    #region Tween delay Time
+    private float m_tweenDelayTimePrev = 0;
+    private float m_tweenDelayTime = 0;
+    public float TweenDelayTime
+    {
+        get { return m_tweenDelayTime; }
+        set
+        {
+            if (value != m_tweenDelayTimePrev)
+            {
+                m_tweenDelayTime = value;
+                m_tweenDelayTimePrev = value;
+
+                if (m_tweenDelayTimeChanged != null)
+                    m_tweenDelayTimeChanged(value);
+            }
+        }
+    }
+    protected System.Action<float> m_tweenDelayTimeChanged;
+
+    #endregion
+
+
+    #region Auto PLay
+    private bool m_autoPlayPrevious = false;
+    private bool m_autoPlay = false;
+
+    public bool AutoPlay
+    {
+        get { return m_autoPlay; }
+        set
+        {
+            if (value != m_autoPlayPrevious)
+            {
+                m_autoPlay = value;
+                m_autoPlayPrevious = value;
+
+                if (m_autoPlayChanged != null)
+                    m_autoPlayChanged(value);
+            }
+        }
+    }
+    protected System.Action<bool> m_autoPlayChanged;
+    #endregion
+
+
+
+    #region Tween Type
+    private LeanTweenType m_tweenTypePrevious;
+    private LeanTweenType m_tweenType;
+
+    public LeanTweenType CTweenType
+    {
+        get { return m_tweenType; }
+        set
+        {
+            if (value != m_tweenTypePrevious)
+            {
+                m_tweenType = value;
+                m_tweenTypePrevious = value;
+
+                if (m_tweenTypeChanged != null)
+                    m_tweenTypeChanged(value);
+            }
+        }
+    }
+    protected System.Action<LeanTweenType> m_tweenTypeChanged;
+    #endregion
+
+
+
+    #region Acting Type
+    private ActingType m_actingTypePrevious;
+    private ActingType m_actingType;
+
+    public ActingType ActingType
+    {
+        get { return m_actingType; }
+        set
+        {
+            if (value != m_actingTypePrevious)
+            {
+                m_actingType = value;
+                m_actingTypePrevious = value;
+
+                if(m_actingType == eeGames.Actor.ActingType.Color)
+                {
+                    var obj = Selection.activeTransform.gameObject;
+                    if( obj.GetComponent<CanvasGroup>() == null) obj.AddComponent<CanvasGroup>();
+                }
+                Title = m_actingType.ToString() + " Actor";
+                if (m_actingTypeChanged != null)
+                    m_actingTypeChanged(value);
+            }
+        }
+    }
+    protected System.Action<ActingType> m_actingTypeChanged;
+    #endregion
+
+
+    #region Loop Type
+    private LoopType m_loopTypePrevious;
+    private LoopType m_loopType;
+
+    public LoopType LoopType
+    {
+        get { return m_loopType; }
+        set
+        {
+            if (value != m_loopTypePrevious)
+            {
+                m_loopType = value;
+                m_loopTypePrevious = value;
+
+                if (m_loopTypeChanged != null)
+                    m_loopTypeChanged(value);
+            }
+        }
+    }
+    protected System.Action<LoopType> m_loopTypeChanged;
+    #endregion
+
+
+
+    #region Loop
+    private bool m_loopPrevious = false;
+    private bool m_loop = false;
+
+    public bool Loop
+    {
+        get { return m_loop; }
+        set
+        {
+            if (value != m_loopPrevious)
+            {
+                m_loop = value;
+                m_loopPrevious = value;
+
+                if (m_loopChanged != null)
+                    m_loopChanged(value);
+            }
+        }
+    }
+    protected System.Action<bool> m_loopChanged;
+    #endregion
+
+
+    #region Tween Count
+    private int m_tweenCountPrev = 0;
+    private int m_tweenCount = 0;
+    public int TweenCount
+    {
+        get { return m_tweenCount; }
+        set
+        {
+            if (value != m_tweenCountPrev)
+            {
+                m_tweenCount = value;
+                m_tweenCountPrev = value;
+
+                if (m_tweenCountChanged != null)
+                    m_tweenCountChanged(value);
+            }
+        }
+    }
+    protected System.Action<int> m_tweenCountChanged;
+
+    #endregion
+
+
+
+
+    #region title
+    private string m_titlePrev;
+    private string m_title;
+    public string Title
+    {
+        get { return m_title; }
+        set
+        {
+            if (value != m_titlePrev)
+            {
+                m_title = value;
+                m_titlePrev = value;
+
+                if (m_titleChanged != null)
+                    m_titleChanged(value);
+            }
+        }
+    }
+    protected System.Action<string> m_titleChanged;
+
+    #endregion
+
+
+    public virtual void Update()
+    {
+        // disbale  button
+
+        // tween time
+        // start delay
+        // auto play
+        // tween type
+        // loop [loop type] | count
+        EditorGUILayout.BeginVertical(GUI.skin.box, GUILayout.ExpandWidth(true));
+
+
+        GUI.color = Enable ? Color.cyan : Color.grey;
+        if (GUILayout.Button(Title, GUILayout.ExpandWidth(true)))
+        {
+            Enable = !Enable;
+        }
+
+        if (!Enable) return;
+        GUI.color = Color.white;
+//        if(ActingType != eeGames.Actor.ActingType.Color) GUI.backgroundColor = Color.cyan;
+
+        ActingType = (ActingType)EditorGUILayout.EnumPopup("Acting Type", ActingType);
+        EditorGUILayout.BeginHorizontal();
+        TweenTime = EditorGUILayout.FloatField("Acting Time: ", TweenTime, GUILayout.ExpandWidth(true));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+//        GUILayout.Label("Start Delay : ", GUILayout.Width(130));
+
+        TweenDelayTime = EditorGUILayout.FloatField("Start Delay : ", TweenDelayTime, GUILayout.ExpandWidth(true));
+        //TweenDelayTime = float.Parse(GUILayout.TextField(TweenDelayTime.ToString(),GUILayout.ExpandWidth(true)));
+      //  TweenDelayTime = GUILayout.HorizontalSlider(TweenDelayTime, 0, 60, GUILayout.Width(200));
+        EditorGUILayout.EndHorizontal();
+
+        AutoPlay = GUILayout.Toggle(AutoPlay, "Auto Play");
+        CTweenType = (LeanTweenType)EditorGUILayout.EnumPopup("Tween Type", CTweenType);
+
+        Loop = GUILayout.Toggle(Loop, "Loop");
+
+
+        if (Loop) LoopType = (LoopType)EditorGUILayout.EnumPopup("Loop Type", LoopType);
+        else
+        {
+            EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+//            GUILayout.Label("Count", GUILayout.Width(130));
+//            TweenCount = int.Parse(EditorGUILayout.TextField(TweenCount.ToString()));
+            TweenCount = EditorGUILayout.IntField("Count: ", TweenCount, GUILayout.ExpandWidth(true));
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
+    }
+}
+
+
+public class ActorVec3Editor : CommonActorElements
+{
+
+    #region To
+    private Vector4 m_toPrev;
+    private Vector4 m_to;
+    public Vector4 To
+    {
+        get { return m_to; }
+        set
+        {
+            if (value != m_toPrev)
+            {
+                m_to = value;
+                m_toPrev = value;
+
+                if (m_toChanged != null)
+                    m_toChanged(value);
+            }
+        }
+    }
+    private System.Action<Vector4> m_toChanged;
+
+    #endregion
+
+
+    #region From
+    private Vector4 m_fromPrev;
+    private Vector4 m_from;
+    public Vector4 From
+    {
+        get { return m_from; }
+        set
+        {
+            if (value != m_fromPrev)
+            {
+                m_from = value;
+                m_fromPrev = value;
+
+                if (m_fromChanged != null)
+                    m_fromChanged(value);
+            }
+        }
+    }
+    private System.Action<Vector4> m_fromChanged;
+
+    #endregion
+
+
+   
+    public void Init(string title, ActingType tType, float tweenTime, float delayTweenTime,
+        bool isEnable, bool isAutoPlay, bool isLoop, LeanTweenType tweenType, LoopType loopType,
+        int tweenCount, Vector4 toVec, Vector4 fromVec, System.Action<float> tweenTimeChanged,
+        System.Action<float> delayTimeChanged, System.Action<bool> IsEnableChanged, System.Action<bool> autoPlayChanged,
+        System.Action<bool> loopChanged, System.Action<LeanTweenType> tweenTypeChanged,
+        System.Action<LoopType> loopTypeChanged, System.Action<int> countChanged, System.Action<Vector4> toChanged,
+        System.Action<Vector4> fromChanged, System.Action<ActingType> actingTypeChanged)
+    {
+        Title = title;
+        TweenTime = tweenTime;
+        TweenDelayTime = delayTweenTime;
+        Enable = isEnable;
+        AutoPlay = isAutoPlay;
+        Loop = isLoop;
+        CTweenType = tweenType;
+        LoopType = loopType;
+        TweenCount = tweenCount;
+        To = toVec;
+        From = fromVec;
+  
+        m_tweenTimeChanged = tweenTimeChanged;
+        m_tweenDelayTimeChanged = delayTimeChanged;
+        m_autoPlayChanged = autoPlayChanged;
+        m_loopChanged = loopChanged;
+        m_tweenTypeChanged = tweenTypeChanged;
+        m_loopTypeChanged = loopTypeChanged;
+        m_tweenCountChanged = countChanged;
+        m_toChanged = toChanged;
+        m_fromChanged = fromChanged;
+        m_actingTypeChanged = actingTypeChanged;
+
+        m_enableChanged = IsEnableChanged;
+        ActingType = tType;
+
+    }
+
+    private void DrawColorActor() 
+    {
+        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+  //      GUI.color = Color.cyan;
+        if (GUILayout.Button("From", GUILayout.Width(75)))
+        {
+            // no need for switch
+           
+        }
+        GUI.color = Color.white;
+        From = EditorGUILayout.ColorField("", From, GUILayout.ExpandWidth(true));
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+    //    GUI.color = Color.cyan;
+        if (GUILayout.Button("To", GUILayout.Width(75)))
+        {
+           
+        }
+        GUI.color = Color.white;
+        To = EditorGUILayout.ColorField("", To, GUILayout.ExpandWidth(true));
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+       
+    //    GUI.color = Color.cyan;
+        EditorGUILayout.EndHorizontal();
+    }
+    private void DrawVec3Actor() 
+    {
+        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+        if (GUILayout.Button("From", GUILayout.Width(75)))
+        {
+            switch (ActingType)
+            {
+                case ActingType.Position:
+                    var newPos = Selection.activeTransform.position; //.GetComponent<RectTransform>()
+                    //  Debug.Log("Pos : " + newPos);
+
+                    string[] dimension = UnityEditor.UnityStats.screenRes.Split('x');
+                    newPos.x /= System.Int32.Parse(dimension[0]);
+                    newPos.y /= System.Int32.Parse(dimension[1]);
+
+                    From = newPos;
+                    break;
+                case ActingType.Scale:
+                    From = Selection.activeTransform.localScale;
+                    break;
+                case ActingType.Rotation:
+                    From = Selection.activeTransform.rotation.eulerAngles;
+                    break;
+            }
+        }
+        From = EditorGUILayout.Vector3Field("", From, GUILayout.ExpandWidth(true));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+        if (GUILayout.Button("To", GUILayout.Width(75)))
+        {
+            switch (ActingType)
+            {
+                case ActingType.Position:
+                    var newPos = Selection.activeTransform.position; //.GetComponent<RectTransform>()
+                    //  Debug.Log("Pos : " + newPos);
+
+                    string[] dimension = UnityEditor.UnityStats.screenRes.Split('x');
+                    newPos.x /= System.Int32.Parse(dimension[0]);
+                    newPos.y /= System.Int32.Parse(dimension[1]);
+
+                    To = newPos;
+                    break;
+                case ActingType.Scale:
+                    To = Selection.activeTransform.localScale;
+                    break;
+                case ActingType.Rotation:
+                    To = Selection.activeTransform.rotation.eulerAngles;
+                    break;
+            }
+        }
+        To = EditorGUILayout.Vector3Field("", To, GUILayout.ExpandWidth(true));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+        
+        EditorGUILayout.EndHorizontal();
+    }
+
+    public override void Update()
+    {
+
+        base.Update();
+        if (!Enable) return;
+        EditorGUILayout.BeginVertical(GUI.skin.box, GUILayout.ExpandWidth(true));
+    
+
+        if(ActingType == eeGames.Actor.ActingType.Color)
+        {
+            DrawColorActor();
+        }
+        else
+        {
+//            GUI.backgroundColor = Color.cyan;
+            DrawVec3Actor();
+        }
+
+        EditorGUILayout.EndVertical();
+    }
+}
+
+
+public class ActorColor : CommonActorElements
+{
+    #region To
+    private Vector4 m_toPrev;
+    private Vector4 m_to;
+    public Vector4 To
+    {
+        get { return m_to; }
+        set
+        {
+            if (value != m_toPrev)
+            {
+                m_to = value;
+                m_toPrev = value;
+
+                if (m_toChanged != null)
+                    m_toChanged(value);
+            }
+        }
+    }
+    private System.Action<Vector4> m_toChanged;
+
+    #endregion
+
+
+    #region From
+    private Vector4 m_fromPrev;
+    private Vector4 m_from;
+    public Vector4 From
+    {
+        get { return m_from; }
+        set
+        {
+            if (value != m_fromPrev)
+            {
+                m_from = value;
+                m_fromPrev = value;
+
+                if (m_fromChanged != null)
+                    m_fromChanged(value);
+            }
+        }
+    }
+    private System.Action<Vector4> m_fromChanged;
+
+    #endregion
+
+
+
+
+    #region Hide
+    private Vector4 m_hidePrev;
+    private Vector4 m_hide;
+    public Vector4 Hide
+    {
+        get { return m_hide; }
+        set
+        {
+            if (value != m_hidePrev)
+            {
+                m_hide = value;
+                m_hidePrev = value;
+
+                if (m_hideChanged != null)
+                    m_hideChanged(value);
+            }
+        }
+    }
+    private System.Action<Vector4> m_hideChanged;
+
+    #endregion
+
+    private ActingType m_type;
+    public void Init(string title, ActingType tType, float tweenTime, float delayTweenTime,
+        bool isEnable, bool isAutoPlay, bool isLoop, LeanTweenType tweenType, LoopType loopType,
+        int tweenCount, Vector4 toVec, Vector4 fromVec, Vector4 hideVec, System.Action<float> tweenTimeChanged,
+        System.Action<float> delayTimeChanged, System.Action<bool> IsEnableChanged, System.Action<bool> autoPlayChanged,
+        System.Action<bool> loopChanged, System.Action<LeanTweenType> tweenTypeChanged,
+        System.Action<LoopType> loopTypeChanged, System.Action<int> countChanged, System.Action<Vector4> toChanged,
+        System.Action<Vector4> fromChanged, System.Action<Vector4> hideChanged)
+    {
+        Title = title;
+        TweenTime = tweenTime;
+        TweenDelayTime = delayTweenTime;
+        Enable = isEnable;
+        AutoPlay = isAutoPlay;
+        Loop = isLoop;
+        CTweenType = tweenType;
+        LoopType = loopType;
+        TweenCount = tweenCount;
+        To = toVec;
+        From = fromVec;
+        Hide = hideVec;
+        m_tweenTimeChanged = tweenTimeChanged;
+        m_tweenDelayTimeChanged = delayTimeChanged;
+        m_autoPlayChanged = autoPlayChanged;
+        m_loopChanged = loopChanged;
+        m_tweenTypeChanged = tweenTypeChanged;
+        m_loopTypeChanged = loopTypeChanged;
+        m_tweenCountChanged = countChanged;
+        m_toChanged = toChanged;
+        m_fromChanged = fromChanged;
+        m_hideChanged = hideChanged;
+        m_enableChanged = IsEnableChanged;
+        m_type = tType;
+    }
+
+
+    public override void Update()
+    {
+
+        base.Update();
+        if (!Enable) return;
+        EditorGUILayout.BeginVertical(GUI.skin.box, GUILayout.ExpandWidth(true));
+        GUI.backgroundColor = Color.white;
+
+
+        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+        GUI.color = Color.cyan;
+        if (GUILayout.Button("From", GUILayout.Width(75)))
+        {
+            switch (m_type)
+            {
+                case ActingType.Position:
+                    break;
+                case ActingType.Scale:
+                    // From = Selection.activeTransform.localScale;
+                    break;
+                case ActingType.Rotation:
+                    break;
+            }
+        }
+        GUI.color = Color.white;
+        From = EditorGUILayout.ColorField("", From, GUILayout.ExpandWidth(true));
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+        GUI.color = Color.cyan;
+        if (GUILayout.Button("To", GUILayout.Width(75)))
+        {
+            switch (m_type)
+            {
+                case ActingType.Position:
+                    break;
+                case ActingType.Scale:
+                    //   To = Selection.activeTransform.localScale;
+                    break;
+                case ActingType.Rotation:
+                    break;
+            }
+        }
+        GUI.color = Color.white;
+        To = EditorGUILayout.ColorField("", To, GUILayout.ExpandWidth(true));
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+        //GUI.color = Color.cyan;
+        //if (GUILayout.Button("Hide", GUILayout.Width(75)))
+        //{
+        //    switch (m_type)
+        //    {
+        //        case ActingType.Position:
+        //            break;
+        //        case ActingType.Scale:
+        //            //     Hide = Selection.activeTransform.localScale;
+        //            break;
+        //        case ActingType.Rotation:
+        //            break;
+        //    }
+        //}
+        //GUI.color = Color.white;
+        //Hide = EditorGUILayout.ColorField("", Hide, GUILayout.ExpandWidth(true));
+        GUI.color = Color.cyan;
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.EndVertical();
     }
 }
