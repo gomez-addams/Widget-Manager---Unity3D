@@ -99,8 +99,6 @@ public class Actor_Editor : Editor
     public override void OnInspectorGUI()
     {
 
-
-
 //        DrawDefaultInspector();
         foreach (var item in m_actorElements)
         {

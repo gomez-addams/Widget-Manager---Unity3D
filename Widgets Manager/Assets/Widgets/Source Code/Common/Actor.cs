@@ -67,7 +67,7 @@ namespace eeGames.Actor
             if (OnStart != null) OnStart.Invoke();
             var mainWindow = GetComponent<RectTransform>();
 
-            Debug.Log("tween started");
+//            Debug.Log("tween started");
 
             if (!ActorData.IsOnce)
             {
@@ -148,7 +148,7 @@ namespace eeGames.Actor
                 }
                 
             }
-            if (ActorData.IsOnce)
+            if (ActorData.IsOnce && !ActorData.IsLoop)
             {
 
                 LTDescr id = LeanTween.rotate(mainWindow.gameObject, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopClamp(ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); });
@@ -165,25 +165,47 @@ namespace eeGames.Actor
             var mainWindow = GetComponent<RectTransform>();
             
             
-            var uiImg = GetComponent<Image>();
-            if (uiImg != null)
+            if(ActorData.IsLoop)
             {
-                if (ActorData.To.x != ActorData.From.x || ActorData.To.y != ActorData.From.y || ActorData.To.w != ActorData.From.w)
+                var uiImg = GetComponent<Image>();
+                if (uiImg != null)
                 {
-                    uiImg.color = ActorData.From;
-                    LTDescr id = LeanTween.color(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
+                    if (ActorData.To.x != ActorData.From.x || ActorData.To.y != ActorData.From.y || ActorData.To.z != ActorData.From.z)
+                    {
+                        uiImg.color = ActorData.From;
+                        LTDescr id = LeanTween.color(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
+                    }
+
                 }
-                
+
+                var canvasGroup = GetComponent<CanvasGroup>();
+                canvasGroup.alpha = ActorData.From.w;
+                if (ActorData.To.w != ActorData.From.w)
+                {
+                    LeanTween.alphaCanvas(canvasGroup, ActorData.To.w, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
+                }
             }
-            
-            var canvasGroup = GetComponent<CanvasGroup>();
-            canvasGroup.alpha = ActorData.From.z;
-            if (ActorData.To.z != ActorData.From.z)
+
+            if (ActorData.IsOnce && !ActorData.IsLoop)
             {
-               
-                // lets do the alpha business
-               
-                LeanTween.alphaCanvas(canvasGroup, ActorData.To.z, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
+                // here do loop once logic {don't care about copy paste above logic (happy lazy coding :))}
+                var uiImg = GetComponent<Image>();
+                if (uiImg != null)
+                {
+                    if (ActorData.To.x != ActorData.From.x || ActorData.To.y != ActorData.From.y || ActorData.To.z != ActorData.From.z)
+                    {
+                        uiImg.color = ActorData.From;
+                        LTDescr id = LeanTween.color(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
+                    }
+
+                }
+
+                var canvasGroup = GetComponent<CanvasGroup>();
+                canvasGroup.alpha = ActorData.From.w;
+                if (ActorData.To.w != ActorData.From.w)
+                {
+                    LeanTween.alphaCanvas(canvasGroup, ActorData.To.w, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
+                }
             }
         }
         #endregion
