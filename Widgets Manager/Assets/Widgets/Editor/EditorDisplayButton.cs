@@ -1075,7 +1075,7 @@ public class ActorVec3Editor : CommonActorElements
     private void DrawVec3Actor() 
     {
         GUI.color = Color.yellow;
-        if (LoopType == eeGames.Actor.LoopType.StartOver)
+        if (LoopType == eeGames.Actor.LoopType.StartOver && ActingType == eeGames.Actor.ActingType.Rotation)
             EditorGUILayout.HelpBox("Now this tween only works for Z-axis rotation, for clockwise rotation set 1 in last box(Z) of from button, for anti-clockwise rotation set -1 in last box(Z) of from button", MessageType.Info, true);
         GUI.color = Color.white;
 
