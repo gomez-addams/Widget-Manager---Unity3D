@@ -102,7 +102,7 @@ namespace eeGames.Actor
             var newPos = ActorData.From;
             newPos.x *= _width;
             newPos.y *= _height;
-            mainWindow.transform.position = newPos;
+            mainWindow.transform.localPosition = newPos;
 
             var pos = ActorData.To;
             pos.x *= _width;
@@ -134,16 +134,16 @@ namespace eeGames.Actor
 
             if (ActorData.IsLoop )
             {
-                Debug.Log("beep beep boop");
+     //           Debug.Log("beep beep boop");
                 if ( ActorData.LoopType == LoopType.StartOver)
                 {
                     // holly molly 
-                    Debug.Log("holy moly");
-                    LTDescr id = LeanTween.rotateAroundLocal(mainWindow, Vector3.forward, 360f * ActorData.From.z , ActorData.Time).setDelay(ActorData.DelayTime).setRepeat(-1).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
+   //                 Debug.Log("holy moly");
+                    LTDescr id = LeanTween.rotateAroundLocal(mainWindow, Vector3.forward, -360f * ActorData.From.z , ActorData.Time).setDelay(ActorData.DelayTime).setRepeat(-1).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
                 }
                 else
                 {
-                    Debug.Log("crap");
+ //                   Debug.Log("crap");
                     LTDescr id = LeanTween.rotate(mainWindow.gameObject, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
                 }
                 

@@ -1086,7 +1086,7 @@ public class ActorVec3Editor : CommonActorElements
             switch (ActingType)
             {
                 case ActingType.Position:
-                    var newPos = Selection.activeTransform.position; //.GetComponent<RectTransform>()
+                    var newPos = Selection.activeTransform.localPosition; //.GetComponent<RectTransform>()
                     //  Debug.Log("Pos : " + newPos);
 
                     string[] dimension = UnityEditor.UnityStats.screenRes.Split('x');
