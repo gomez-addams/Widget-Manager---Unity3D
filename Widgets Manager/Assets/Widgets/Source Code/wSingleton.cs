@@ -3,7 +3,7 @@ using System.Collections;
 
 
 /// <summary>
-/// This class does not create multiple instances LoadLevel Called again
+/// This class does not create multiple instances on re-loading same level
 /// </summary>
 /// <typeparam name="T">Type of Class</typeparam>
 public class wSingleton<T> : MonoBehaviour where T : MonoBehaviour
@@ -33,7 +33,7 @@ public class wSingleton<T> : MonoBehaviour where T : MonoBehaviour
             //If I am the first instance, make me the Singleton
             m_instance = this as T;
             DontDestroyOnLoad(this);
-            Debug.Log("Singelton Created...");
+ //           Debug.Log("Singelton Created...");
         }
         else
         {
