@@ -21,7 +21,32 @@ namespace eeGames.Actor
         Position,
         Color
     }
-    // 
+
+    /// <summary>
+    /// data structure used to store tween data
+    /// </summary>
+    [System.Serializable]
+    public class ActorData
+    {
+        public bool IsActive;
+        public bool IsActing;
+        public float Time;
+        public float DelayTime;
+        public int TweenCount;
+        public bool IsAutoPlay;
+        public bool IsLoop;
+        public bool IsOnce;
+        public LeanTweenType TweenType;
+        public LoopType LoopType;
+        public Vector4 From;
+        public Vector4 To;
+        //        public Vector4 Hide;
+    }
+
+    [System.Serializable]
+    public class ActorEvent : UnityEngine.Events.UnityEvent
+    { }
+
     [System.Serializable]
     public class Actor : MonoBehaviour 
     {
@@ -45,13 +70,15 @@ namespace eeGames.Actor
             if (ActorData.IsAutoPlay) PerformActing();
         }
        
+        /// <summary>
+        /// plays tween depending on which ActingType is selected 
+        /// </summary>
          [ContextMenu("Perform Acting")]
         public void PerformActing()
         {
             if (!ActorData.IsActive) return;
             switch (Type)
             {
-            
                 case ActingType.Scale:
                     DoScaleActing();
                     break;
@@ -89,6 +116,18 @@ namespace eeGames.Actor
                      DoReverseColorActing();
                      break;
              }
+         }
+         /// <summary>
+         /// Setting tween from code at run time, useful if you wants to move object to other points
+         /// </summary>
+         /// <param name="From"></param>
+         /// <param name="To"></param>
+         /// <param name="Time"></param>
+         /// <param name="Delay"></param>
+         /// <param name="Type"></param>
+         public void DoPositionTween(Vector3 From, Vector3 To, float Time, float Delay = 0f, LeanTweenType Type = LeanTweenType.linear)
+         {
+             LTDescr id = LeanTween.move(gameObject, To, Time).setDelay(Delay).setLoopOnce().setEase(Type).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
          }
 
 
@@ -159,18 +198,7 @@ namespace eeGames.Actor
             }
         }
 
-        /// <summary>
-        /// Setting tween from code at run time, useful if you wants to move object to other points
-        /// </summary>
-        /// <param name="From"></param>
-        /// <param name="To"></param>
-        /// <param name="Time"></param>
-        /// <param name="Delay"></param>
-        /// <param name="Type"></param>
-       public void DoPositionTween(Vector3 From, Vector3 To, float Time, float Delay = 0f, LeanTweenType Type = LeanTweenType.linear)
-        {
-            LTDescr id = LeanTween.move(gameObject, To, Time).setDelay(Delay).setLoopOnce().setEase(Type).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
-        }
+       
         private void DoPositionActing()
         {
 
@@ -342,29 +370,6 @@ namespace eeGames.Actor
         #endregion
     }
 
-    /// <summary>
-    /// data structure used to store tween data
-    /// </summary>
-    [System.Serializable]
-    public class ActorData
-    {
-        public bool IsActive;
-        public bool IsActing;
-        public float Time;
-        public float DelayTime;
-        public int TweenCount;
-        public bool IsAutoPlay;
-        public bool IsLoop;
-        public bool IsOnce;
-        public LeanTweenType TweenType;
-        public LoopType LoopType;
-        public Vector4 From;
-        public Vector4 To;
-//        public Vector4 Hide;
-    }
-
-    [System.Serializable]
-    public class ActorEvent : UnityEngine.Events.UnityEvent
-    { }
+    
 
 }

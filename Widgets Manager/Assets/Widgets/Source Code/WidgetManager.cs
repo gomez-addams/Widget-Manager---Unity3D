@@ -20,8 +20,7 @@ namespace eeGames.Widget
         {
             base.Awake();
             m_parent = GameObject.FindGameObjectWithTag("Parent").transform;   // assign parent tag to canvas or panel which you want acts as parent
-
-            if (m_parent == null) Debug.LogError("Set tag of Canvas to Parent");
+            if (m_parent == null) Debug.LogError("<color=red>Create new tag Parent & assign it to Canvas(parent):</color>");
             else m_stack = new List<Widget>();
         }
 
@@ -36,7 +35,7 @@ namespace eeGames.Widget
         {
             if (m_stack.Count < 1)
             {
-                Debug.Log("there is no more item in stack");
+                Debug.Log("<color=red>There is no more item in stack:</color>");
                 return;
             }
 
@@ -55,13 +54,14 @@ namespace eeGames.Widget
                     m_handler.setOnComplete(() =>
                     {
                         m_pooledWidgets.Remove(top);
-                        Destroy(top.gameObject);
+                        //Destroy(top.gameObject);
+                        top.DestroyWidget();
                     });
                 }
                 else
                 {
                     m_pooledWidgets.Remove(top);
-                    Destroy(top.gameObject);
+                    top.DestroyWidget();
                 }
 
 
@@ -79,7 +79,7 @@ namespace eeGames.Widget
         {
             if (m_stack.Count < 1)
             {
-                Debug.Log("there is no more item in stack");
+                Debug.Log("<color=red>There is no more item in stack:</color>");
                 return;
             }
 
@@ -90,7 +90,7 @@ namespace eeGames.Widget
             Widget top = GetWidget(id);
             if (top == null)
             {
-                Debug.Log("There is no Active Widget by this Id");
+                Debug.Log("<color=red>There is no Active Widget by this Id:</color>" + " " + id.ToString());
                 return;
             }
             top.Hide();
@@ -152,7 +152,16 @@ namespace eeGames.Widget
 
         }
 
+        void Update() 
+        {
+            if(Input.GetKeyDown(KeyCode.A))
+            {
+                Push(WidgetName.MainMenu);
+            }
 
+            if (Input.GetKeyDown(KeyCode.Space))
+                UnWindStack();
+        }
       
         /// <summary>
         /// Delete All Widgets, Even deletes pooled widgets
@@ -161,7 +170,7 @@ namespace eeGames.Widget
         {
             for (int i = 0; i < m_pooledWidgets.Count; i++ )
             {
-                Destroy(m_pooledWidgets[i].gameObject);
+                m_pooledWidgets[i].DestroyWidget();
             }
             m_stack.Clear();
             m_pooledWidgets.Clear();
