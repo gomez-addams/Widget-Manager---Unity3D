@@ -203,7 +203,7 @@ namespace eeGames.Actor
                 {
                     // holy moly 
    //                 Debug.Log("holy moly");
-                    LTDescr id = LeanTween.rotateAroundLocal(mainWindow, Vector3.forward, -360f * ActorData.From.z , ActorData.Time).setDelay(ActorData.DelayTime).setRepeat(-1).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
+                    LTDescr id = LeanTween.rotateAroundLocal(mainWindow.gameObject, Vector3.forward, -360f * ActorData.From.z, ActorData.Time).setDelay(ActorData.DelayTime).setRepeat(-1).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
                 }
                 else
                 {
@@ -300,12 +300,12 @@ namespace eeGames.Actor
 
                 }
 
-                //var canvasGroup = GetComponent<CanvasGroup>();
-                //canvasGroup.alpha = ActorData.From.w;
-                //if (ActorData.To.w != ActorData.From.w)
-                //{
-                //    LeanTween.alphaCanvas(canvasGroup, ActorData.To.w, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
-                //}
+                var canvasGroup = GetComponent<CanvasGroup>();
+               // canvasGroup.alpha = ActorData.From.w;
+                if (ActorData.To.w != ActorData.From.w)
+                {
+                    LeanTween.alphaCanvas(canvasGroup, ActorData.From.w, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => {  ActorData.IsActing = false; });
+                }
             }
         }
         #endregion
