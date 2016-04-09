@@ -11,6 +11,7 @@ public class AutoType : MonoBehaviour
 
     public bool AutoPlay = false;
     // Use this for initialization
+
     void Start()
     {
         message = Typer.text;

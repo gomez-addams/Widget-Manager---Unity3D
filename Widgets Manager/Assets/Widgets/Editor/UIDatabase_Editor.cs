@@ -167,16 +167,16 @@ public class UIDatabase_Editor : EditorWindow
 
         if (GUILayout.Button("Done Edit", GUILayout.Width(100)))
         {
-            if (IsExist())
-            {
-                ShowNotification(new GUIContent(m_newUI.Id.ToString() + " Already Exists"));
-            }
-            else
-            {
+            //if (IsExist())
+            //{
+            //    ShowNotification(new GUIContent(m_newUI.Id.ToString() + " Already Exists"));
+            //}
+            //else
+            //{
                 m_gameWidgets.SortAlphabeticallyAtoZ();
                 EditorUtility.SetDirty(m_gameWidgets);
                 m_state = State.BLANK;
-            }
+            //}
         }
 
 

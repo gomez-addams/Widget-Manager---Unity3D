@@ -159,7 +159,18 @@ namespace eeGames.Actor
             }
         }
 
-
+        /// <summary>
+        /// Setting tween from code at run time, useful if you wants to move object to other points
+        /// </summary>
+        /// <param name="From"></param>
+        /// <param name="To"></param>
+        /// <param name="Time"></param>
+        /// <param name="Delay"></param>
+        /// <param name="Type"></param>
+       public void DoPositionTween(Vector3 From, Vector3 To, float Time, float Delay = 0f, LeanTweenType Type = LeanTweenType.linear)
+        {
+            LTDescr id = LeanTween.move(gameObject, To, Time).setDelay(Delay).setLoopOnce().setEase(Type).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
+        }
         private void DoPositionActing()
         {
 
