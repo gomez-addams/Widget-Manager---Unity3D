@@ -30,17 +30,21 @@ namespace eeGames.Actor
         public ActorEvent OnStart;
         public ActorEvent OnStop;
 
-
+        private bool _onFirstRun = true;
         void OnDisable() 
         {
             LeanTween.cancel(gameObject); 
         }
         void OnEnable() 
         {
+            if (!_onFirstRun) { if (ActorData.IsAutoPlay) PerformActing(); }
+        }
+
+        void Start() 
+        {
             if (ActorData.IsAutoPlay) PerformActing();
         }
        
-
          [ContextMenu("Perform Acting")]
         public void PerformActing()
         {
@@ -61,6 +65,7 @@ namespace eeGames.Actor
                     DoColorActing();
                     break;
             }
+            _onFirstRun = false;
         }
 
          [ContextMenu("Perform Reverse Acting")]
@@ -125,15 +130,32 @@ namespace eeGames.Actor
         private void DoReversePositionActing()
         {
             var mainWindow = GetComponent<RectTransform>();
+
+
+#if UNITY_EDITOR
+            string[] dimension = UnityEditor.UnityStats.screenRes.Split('x');
+            int _width = System.Int32.Parse(dimension[0]);
+            int _height = System.Int32.Parse(dimension[1]);
+#endif
+
+#if !UNITY_EDITOR
+        int _width = Screen.width;
+        int _height = Screen.height;
+#endif
+
+            var pos = ActorData.To;
+            pos.x *= _width;
+            pos.y *= _height;
+
    
             if (!ActorData.IsOnce)
             {
-                LTDescr id = LeanTween.move(mainWindow.gameObject, _pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { ActorData.IsActing = false; }).setOnStart(() => { ActorData.IsActing = true; });
+                LTDescr id = LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { ActorData.IsActing = false; }).setOnStart(() => { ActorData.IsActing = true; });
             }
             else
             {
 
-                LTDescr id = LeanTween.move(mainWindow, _pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { });
+                LTDescr id = LeanTween.move(mainWindow.gameObject, _pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { });
             }
         }
 
@@ -158,13 +180,12 @@ namespace eeGames.Actor
             var newPos = ActorData.From;
             newPos.x *= _width;
             newPos.y *= _height;
-            mainWindow.transform.localPosition = newPos;
+            mainWindow.position = newPos;
             _pos = newPos;
             var pos = ActorData.To;
             pos.x *= _width;
             pos.y *= _height;
 
-          
             if (!ActorData.IsOnce) // TODO : actor moved to From position imediately (it should move to from position OnTweenStart)
             {
                 if (ActorData.LoopType == LoopType.PingPong)
@@ -175,7 +196,6 @@ namespace eeGames.Actor
                 {
                     LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => 
                     {
-
                         DoPositionActing();
 
                     });
