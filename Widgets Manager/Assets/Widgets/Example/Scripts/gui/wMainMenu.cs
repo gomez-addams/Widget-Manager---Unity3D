@@ -24,7 +24,6 @@ public class wMainMenu : eeGames.Widget.Widget
         m_settingButton.onClick.RemoveListener(OnSettingButtonClick);
         m_miniGameButton.onClick.RemoveListener(OnMiniGameButtonClick);
         base.DestroyWidget();
-        Debug.Log("@ manin menu");
     }
 
     #endregion

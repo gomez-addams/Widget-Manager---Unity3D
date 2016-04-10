@@ -54,7 +54,6 @@ namespace eeGames.Widget
                     m_handler.setOnComplete(() =>
                     {
                         m_pooledWidgets.Remove(top);
-                        //Destroy(top.gameObject);
                         top.DestroyWidget();
                     });
                 }
@@ -123,11 +122,16 @@ namespace eeGames.Widget
       /// <param name="id">Id of Widget</param>
       /// <param name="isPlayHideTween">Play hide tween of previous widget</param>
       /// <param name="lastActive">Is previous Widget Visible</param>
+      /// <param name="lastInteractive">Is previous Widget Interactable, in case of small panels</param>
       /// <param name="firstChild">Set Widget as first child </param>
-        public void Push(WidgetName id, bool isPlayHideTween = true, bool lastActive = false, bool firstChild = false)
+        public void Push(WidgetName id, bool isPlayHideTween = true, bool lastActive = false, bool lastInteractive = false, bool firstChild = false)
         {
 
-            if (m_stack.Count >= 1) { if (!lastActive) { m_stack[0].Hide(isPlayHideTween); } }
+            if (m_stack.Count >= 1) 
+            { 
+                if (!lastActive) { m_stack[0].Hide(isPlayHideTween); }
+                m_stack[0].CanvasGroup.interactable = lastInteractive; 
+            }
 
             Widget widget = GetPooledWidget(id);
 

@@ -8,6 +8,8 @@ namespace eeGames.Widget
     /// <summary>
     /// This Class is under development so it is subject to changes 
     /// </summary>
+     
+    [RequireComponent(typeof(CanvasGroup))]
     public class Widget : MonoBehaviour, IWidget
     {
         private WidgetName m_id;
@@ -59,6 +61,26 @@ namespace eeGames.Widget
             set { m_tween = value; }
         }
 
+
+        private CanvasGroup m_canvasGroup;
+        /// <summary>
+        /// canvas group used to disable previous widgets
+        /// </summary>
+        public CanvasGroup CanvasGroup
+        {
+            get
+            {
+                if (m_canvasGroup == null)
+                {
+                    var cGroup = GetComponent<CanvasGroup>();
+                    if (cGroup != null) m_canvasGroup = cGroup;
+                    else Debug.Log("<color=red>Attach CanvasGroup with Widget GameObject:</color>");
+                }
+
+                return m_canvasGroup;
+            }
+        }
+
         /// <summary>
         /// OnShow Event Add Listner to this to be played on Widget Show
         /// </summary>
@@ -108,6 +130,7 @@ namespace eeGames.Widget
             }
 
             IsActive = true;
+            CanvasGroup.interactable = true;
         }
         /// <summary>
         /// Gets called when Widget poped
