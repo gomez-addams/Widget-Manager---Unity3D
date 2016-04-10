@@ -127,7 +127,7 @@ namespace eeGames.Actor
          /// <param name="Type"></param>
          public void DoPositionTween(Vector3 From, Vector3 To, float Time, float Delay = 0f, LeanTweenType Type = LeanTweenType.linear)
          {
-             LTDescr id = LeanTween.move(gameObject, To, Time).setDelay(Delay).setLoopOnce().setEase(Type).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
+             LeanTween.move(gameObject, To, Time).setDelay(Delay).setLoopOnce().setEase(Type).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
          }
 
 
@@ -140,12 +140,12 @@ namespace eeGames.Actor
 
             if (!ActorData.IsOnce)
             {
-                LTDescr id = LeanTween.scale(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.localScale = ActorData.From; ActorData.IsActing = true; });
+                LeanTween.scale(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.localScale = ActorData.From; ActorData.IsActing = true; });
             }
             else
             {
 
-                LTDescr id = LeanTween.scale(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.localScale = ActorData.From; });
+                LeanTween.scale(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.localScale = ActorData.From; });
             }
         }
 
@@ -156,12 +156,12 @@ namespace eeGames.Actor
 
             if (!ActorData.IsOnce)
             {
-                LTDescr id = LeanTween.scale(mainWindow, ActorData.From, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.localScale = ActorData.To; ActorData.IsActing = true; });
+                LeanTween.scale(mainWindow, ActorData.From, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.localScale = ActorData.To; ActorData.IsActing = true; });
             }
             else
             {
 
-                LTDescr id = LeanTween.scale(mainWindow, ActorData.From, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.localScale = ActorData.To; });
+                LeanTween.scale(mainWindow, ActorData.From, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.localScale = ActorData.To; });
             }
         }
 
@@ -189,12 +189,12 @@ namespace eeGames.Actor
    
             if (!ActorData.IsOnce)
             {
-                LTDescr id = LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { ActorData.IsActing = false; }).setOnStart(() => { ActorData.IsActing = true; });
+                LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { ActorData.IsActing = false; }).setOnStart(() => { ActorData.IsActing = true; });
             }
             else
             {
 
-                LTDescr id = LeanTween.move(mainWindow.gameObject, _pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { });
+                LeanTween.move(mainWindow.gameObject, _pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { });
             }
         }
 
@@ -229,7 +229,7 @@ namespace eeGames.Actor
             {
                 if (ActorData.LoopType == LoopType.PingPong)
                 {
-                    LTDescr id = LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { ActorData.IsActing = true; });
+                    LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { ActorData.IsActing = true; });
                 }
                 else
                 {
@@ -243,7 +243,7 @@ namespace eeGames.Actor
             else
             {
                
-                LTDescr id = LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
+                LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
             }
 
         }
@@ -262,19 +262,19 @@ namespace eeGames.Actor
                 {
                     // holy moly 
    //                 Debug.Log("holy moly");
-                    LTDescr id = LeanTween.rotateAroundLocal(mainWindow.gameObject, Vector3.forward, -360f * ActorData.From.z, ActorData.Time).setDelay(ActorData.DelayTime).setRepeat(-1).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
+                    LeanTween.rotateAroundLocal(mainWindow.gameObject, Vector3.forward, -360f * ActorData.From.z, ActorData.Time).setDelay(ActorData.DelayTime).setRepeat(-1).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
                 }
                 else
                 {
  //                   Debug.Log("crap");
-                    LTDescr id = LeanTween.rotate(mainWindow.gameObject, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
+                   LeanTween.rotate(mainWindow.gameObject, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); ActorData.IsActing = true; });
                 }
                 
             }
             if (ActorData.IsOnce && !ActorData.IsLoop)
             {
 
-                LTDescr id = LeanTween.rotate(mainWindow.gameObject, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopClamp(ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); });
+                LeanTween.rotate(mainWindow.gameObject, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopClamp(ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.From); });
             }
         }
 
@@ -285,7 +285,7 @@ namespace eeGames.Actor
             if (ActorData.IsOnce && !ActorData.IsLoop)
             {
 
-                LTDescr id = LeanTween.rotate(mainWindow.gameObject, ActorData.From, ActorData.Time).setDelay(ActorData.DelayTime).setLoopClamp(ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.To); });
+                LeanTween.rotate(mainWindow.gameObject, ActorData.From, ActorData.Time).setDelay(ActorData.DelayTime).setLoopClamp(ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); }).setOnStart(() => { mainWindow.transform.rotation = Quaternion.Euler(ActorData.To); });
             }
         }
 
@@ -305,7 +305,7 @@ namespace eeGames.Actor
                     if (ActorData.To.x != ActorData.From.x || ActorData.To.y != ActorData.From.y || ActorData.To.z != ActorData.From.z)
                     {
                         uiImg.color = ActorData.From;
-                        LTDescr id = LeanTween.color(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
+                        LeanTween.color(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
                     }
 
                 }
@@ -327,7 +327,7 @@ namespace eeGames.Actor
                     if (ActorData.To.x != ActorData.From.x || ActorData.To.y != ActorData.From.y || ActorData.To.z != ActorData.From.z)
                     {
                         uiImg.color = ActorData.From;
-                        LTDescr id = LeanTween.color(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
+                        LeanTween.color(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; });
                     }
 
                 }
@@ -354,7 +354,7 @@ namespace eeGames.Actor
                     if (ActorData.To.x != ActorData.From.x || ActorData.To.y != ActorData.From.y || ActorData.To.z != ActorData.From.z)
                     {
                         uiImg.color = ActorData.To;
-                        LTDescr id = LeanTween.color(mainWindow, ActorData.From, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { ActorData.IsActing = false; });
+                        LeanTween.color(mainWindow, ActorData.From, ActorData.Time).setDelay(ActorData.DelayTime).setLoopOnce().setEase(ActorData.TweenType).setOnComplete(() => { ActorData.IsActing = false; });
                     }
 
                 }

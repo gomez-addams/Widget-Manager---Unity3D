@@ -10,14 +10,14 @@ using System.Collections.Generic;
 public class WidgetEditor : Editor
 {
     private Widget Target { get { return (Widget)target; } }
-    private AnimBool networkingFoldout;
+//    private AnimBool networkingFoldout;
     private bool m_tweens;
     private GUIStyle m_editorStyle;
 
 
     private void OnEnable()
     {
-        networkingFoldout = new AnimBool(true);
+//        networkingFoldout = new AnimBool(true);
 
         m_editorStyle = new GUIStyle();
         m_editorStyle.normal.textColor = Color.white;
@@ -36,7 +36,7 @@ public class WidgetEditor : Editor
         EditorGUILayout.Separator();
         EditorGUILayout.Space();
 
-        Rect area = GUILayoutUtility.GetRect(0.0f, 30.0f, GUILayout.ExpandWidth(true));
+ //       Rect area = GUILayoutUtility.GetRect(0.0f, 30.0f, GUILayout.ExpandWidth(true));
 
         if (m_tweens == false)
         {
@@ -46,7 +46,7 @@ public class WidgetEditor : Editor
             Rect area2 = GUILayoutUtility.GetRect(30f, 20.0f, GUILayout.ExpandWidth(true));
             if (GUI.Button(area2, "Add Tween"))
             {
-               var t = Target.gameObject.AddComponent<WidgetTween>();
+               Target.gameObject.AddComponent<WidgetTween>();
                m_tweens = true;
                
             }

@@ -12,7 +12,7 @@ public class wMainMenu : eeGames.Widget.Widget
    
 
     #region UNity Methods
-    void Awake()
+    protected override void Awake()
     {
        
         m_settingButton.onClick.AddListener(OnSettingButtonClick);
@@ -24,6 +24,7 @@ public class wMainMenu : eeGames.Widget.Widget
         m_settingButton.onClick.RemoveListener(OnSettingButtonClick);
         m_miniGameButton.onClick.RemoveListener(OnMiniGameButtonClick);
         base.DestroyWidget();
+        Debug.Log("@ manin menu");
     }
 
     #endregion

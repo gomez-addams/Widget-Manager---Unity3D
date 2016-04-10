@@ -15,7 +15,7 @@ public class wAudioSettings : Widget
     }
 
 
-    void Awake() 
+    protected override void Awake() 
     {
         m_closeButton.onClick.AddListener(OnCloseButtonClick);
     }

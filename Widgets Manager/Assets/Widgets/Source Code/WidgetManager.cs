@@ -35,7 +35,7 @@ namespace eeGames.Widget
         {
             if (m_stack.Count < 1)
             {
-                Debug.Log("<color=red>There is no more item in stack:</color>");
+                Debug.Log("<color=red>There is no more Widget in stack:</color>");
                 return;
             }
 
@@ -131,7 +131,7 @@ namespace eeGames.Widget
 
             Widget widget = GetPooledWidget(id);
 
-            if (!widget)
+            if (!widget || !widget.IsPoolOnLoad)
             {
                 var wToLoad = Database.GetDatabase().Find(w => w.Id == id);
                 GameObject widgetObj = Instantiate(Resources.Load(wToLoad.perfabPath)) as GameObject;
@@ -152,17 +152,6 @@ namespace eeGames.Widget
 
         }
 
-        void Update() 
-        {
-            if(Input.GetKeyDown(KeyCode.A))
-            {
-                Push(WidgetName.MainMenu);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-                UnWindStack();
-        }
-      
         /// <summary>
         /// Delete All Widgets, Even deletes pooled widgets
         /// </summary>

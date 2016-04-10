@@ -16,7 +16,7 @@ public class UIDatabase_Editor : EditorWindow
 
     private State m_state;
 
-    private int m_selectedUI;
+//    private int m_selectedUI;
     private string m_newUIName;
     private WidgetData m_newUI;
     private const string DATABASE_PATH = @"Assets/Widgets/Source Code/database/Resources/WidgetDatabase.asset";
@@ -101,7 +101,7 @@ public class UIDatabase_Editor : EditorWindow
             GUI.color = Color.green;
             if (GUILayout.Button(m_gameWidgets.GameUI(cnt).Id.ToString(), "box", GUILayout.ExpandWidth(true)))
             {
-                m_selectedUI = cnt;
+//                m_selectedUI = cnt;
                 m_state = State.EDIT;
                 m_newUI = m_gameWidgets.GameUI(cnt);
             }
@@ -261,7 +261,7 @@ public class UIDatabase_Editor : EditorWindow
         if(obj == null)
         {
             GameObject wManager = new GameObject("Widget_Manager", typeof(WidgetManager));
-            Debug.Log("Widget Manager Created...!");
+            Debug.Log("Widget Manager Created...! " + wManager.name);
         }
         else
         {

@@ -37,7 +37,7 @@ public class Tweens
     public LeanTweenType TweenType = LeanTweenType.easeOutBounce;
 
     private LTDescr m_handler = null;
-    private LTDescr m_handler2 = null;
+//    private LTDescr m_handler2 = null;
     public void DoPositionTween(GameObject obj, System.Action OnTweenEnd = null, System.Action OnTweenStart = null)
     {
         if (!IsPosition) return;

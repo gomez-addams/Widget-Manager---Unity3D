@@ -12,8 +12,9 @@ public class wMiniGame : Widget
     {
         WidgetManager.Instance.Pop();
     }
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         m_closeButton.onClick.AddListener(OnCloseButtonClick);
     }
 

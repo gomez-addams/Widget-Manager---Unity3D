@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class Actor_Editor : Editor
 {
     private Actor Target { get { return (Actor)target; } }
-    private AnimBool networkingFoldout;
+//    private AnimBool networkingFoldout;
     private bool m_tweens;
     private GUIStyle m_editorStyle;
     private ActorVec3Editor m_actor;
@@ -18,7 +18,7 @@ public class Actor_Editor : Editor
     private void OnEnable()
     {
         m_actorElements.Clear();
-        networkingFoldout = new AnimBool(true);
+//        networkingFoldout = new AnimBool(true);
 
         m_editorStyle = new GUIStyle();
         m_editorStyle.normal.textColor = Color.white;
@@ -95,7 +95,7 @@ public class Actor_Editor : Editor
         // m_actorElements.Add(colorActor);
     }
 
-    private static bool _positionFold = false;
+//    private static bool _positionFold = false;
     public override void OnInspectorGUI()
     {
 

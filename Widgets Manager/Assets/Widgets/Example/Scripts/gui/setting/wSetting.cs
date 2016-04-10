@@ -13,7 +13,7 @@ public class wSetting : Widget
 
 
     #region UNity Methods
-    void Awake()
+    protected override void Awake()
     {
         m_audioButton.onClick.AddListener(OnAudioButtonClick);
         m_gameButton.onClick.AddListener(OnGameButtonClick);

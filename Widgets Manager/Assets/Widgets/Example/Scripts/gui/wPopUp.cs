@@ -10,7 +10,11 @@ public class wPopUp : Widget
 
     #region UNity Methods
 
-    void Awake() { m_closeButton.onClick.AddListener(OnCloseButtonClick); }
+    protected override void Awake() 
+    {
+        base.Awake();
+        m_closeButton.onClick.AddListener(OnCloseButtonClick); 
+    }
     void OnDestroy() { Reset(); }
     #endregion
 

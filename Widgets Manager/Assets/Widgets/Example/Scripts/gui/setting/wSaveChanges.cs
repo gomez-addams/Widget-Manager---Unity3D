@@ -11,7 +11,7 @@ public class wSaveChanges : Widget
     private Button m_noButton;
 
     #region UNity Events
-    void  Awake() 
+    protected override void Awake() 
     {
         m_noButton.onClick.AddListener(OnNoButtonClick);
         m_yesButton.onClick.AddListener(OnYesButtonClick);
