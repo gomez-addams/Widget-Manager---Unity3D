@@ -127,6 +127,7 @@ namespace eeGames.Actor
          /// <param name="Type"></param>
          public void DoPositionTween(Vector3 From, Vector3 To, float Time, float Delay = 0f, LeanTweenType Type = LeanTweenType.linear)
          {
+             gameObject.transform.position = From;
              LeanTween.move(gameObject, To, Time).setDelay(Delay).setLoopOnce().setEase(Type).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); });
          }
 
