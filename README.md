@@ -19,3 +19,9 @@ https://eeprogrammer.wordpress.com/2016/03/06/unity3d-widgetui-manager/
 - State Machine which directs screen UI elements (I named it Director)
 - Particles system to show on top of UI elements.
 - UI element effects.
+
+### Special Thanks
+- Russell Savage for creating LeanTween
+- Khalid for helping me out capturing relative position of gameobject in Editor
+- Aman for Testing the package & providing valuable feedback.
+- All the users who gave reviews on Asset store.
