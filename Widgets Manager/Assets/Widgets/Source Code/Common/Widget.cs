@@ -141,8 +141,9 @@ namespace eeGames.Widget
             if (OnHide != null) OnHide.Invoke();
             if (IsPlayTween)
             {
-                if (Tweens != null)
-                    Tweens.PerformOnHideTweens(gameObject, () => { gameObject.SetActive(false);});
+                if (Tweens != null)	Tweens.PerformOnHideTweens(gameObject, () => { gameObject.SetActive(false);});
+				else gameObject.SetActive(false);
+            
             }
             else
             {
