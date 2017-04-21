@@ -15,7 +15,7 @@ https://eeprogrammer.wordpress.com/2016/03/06/unity3d-widgetui-manager/
 
 
 ### TODO :
-- Custom Inspector for adding tweens to individual UI elements (I named it Actor)
+- Custom Inspector for adding tweens to individual UI elements (I named it Actor) (done)
 - State Machine which directs screen UI elements (I named it Director)
 - Particles system to show on top of UI elements.
 - UI element effects.
