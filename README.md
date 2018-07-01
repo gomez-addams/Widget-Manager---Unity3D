@@ -8,7 +8,7 @@ Manages your game UI's load and unload UI by single call. It loads new UI on top
 <img src="https://github.com/Ahmed310/Widget-Manager---Unity3D/blob/master/screenshots/w_hide.jpg"/>
 
 
-### Unity Assert Store Link
+### Unity Asset Store Link
 https://www.assetstore.unity3d.com/#!/content/57802
 
 ### Setup Guide
