@@ -9,7 +9,7 @@ Manages your game UI's load and unload UI by single call. It loads new UI on top
 
 
 ### Unity Asset Store Link
-https://www.assetstore.unity3d.com/#!/content/57802
+https://assetstore.unity.com/packages/tools/gui/widget-ui-manager-57802
 
 ### Setup Guide
 https://eeprogrammer.wordpress.com/2016/03/06/unity3d-widgetui-manager/
