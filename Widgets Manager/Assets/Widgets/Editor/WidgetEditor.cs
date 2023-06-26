@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
-using UnityEditor.AnimatedValues;
 using eeGames.Widget;
-using System.Collections.Generic;
 
 
 [CustomEditor(typeof(Widget), true), CanEditMultipleObjects]
@@ -53,15 +50,16 @@ public class WidgetEditor : Editor
             GUI.color = Color.white;
             EditorUtility.SetDirty(this);
         }
-        
-       
+
+
 
 
         // Needed because the enum's keep getting reset
-        EditorUtility.SetDirty(Target);
+        if (GUI.changed)
+            EditorUtility.SetDirty(Target);
 
     
 
-        Repaint();
+        //Repaint();
     }
 }

@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
 using eeGames.Actor;
-using UnityEditor.AnimatedValues;
 using System.Collections.Generic;
 
 [CustomEditor(typeof(Actor), true), CanEditMultipleObjects]

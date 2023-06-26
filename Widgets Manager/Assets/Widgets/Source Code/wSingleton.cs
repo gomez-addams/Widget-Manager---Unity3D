@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-
 
 /// <summary>
 /// This class does not create multiple instances on re-loading same level

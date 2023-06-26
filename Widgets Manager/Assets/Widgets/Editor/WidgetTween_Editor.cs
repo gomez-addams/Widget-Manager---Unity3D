@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
-using UnityEditor.AnimatedValues;
-using System.Collections;
 using eeGames.Actor;
+using UnityEditor.AnimatedValues;
+using System.Collections.Generic;
 
 [CustomEditor(typeof(WidgetTween), true), CanEditMultipleObjects]
 public class WidgetTween_Editor : Editor 
@@ -13,9 +12,6 @@ public class WidgetTween_Editor : Editor
     private AnimBool easyControls;
     private List<EditorDisplayButton> _editorButtons = new List<EditorDisplayButton>();
     private GUIStyle _editorStyle;
-
-
-   
 
     private void Init() 
     {
@@ -101,6 +97,7 @@ public class WidgetTween_Editor : Editor
     }
     public override void OnInspectorGUI()
     {
+        //base.OnInspectorGUI();
         EditorGUILayout.Space();
         EditorGUILayout.Separator();
         EditorGUILayout.Space();
@@ -126,17 +123,17 @@ public class WidgetTween_Editor : Editor
                 button.Update(Event.current, _editorStyle, this, Screen.width, Screen.height);
                 GUILayout.Space(10);
             }
-
         }
 
+        EditorGUILayout.EndFadeGroup();
 
         EditorGUILayout.Space();
         EditorGUILayout.Separator();
         EditorGUILayout.Space();
 
+        if (GUI.changed)
+            EditorUtility.SetDirty(Target);
 
-        EditorUtility.SetDirty(Target);
-        
-        Repaint();
+        //Repaint();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using System.Linq;
 using eeGames.Widget;
+using System.Collections.Generic;
 
 /// <summary>
 /// Stores Windget Data Edited by Widget Editor Window
