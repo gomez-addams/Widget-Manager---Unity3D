@@ -114,10 +114,10 @@ public class Actor_Editor : Editor
         }
 
 
-        
 
-        //       // Needed because the enum's keep getting reset
-        EditorUtility.SetDirty(Target);
+
+        if (GUI.changed)
+            EditorUtility.SetDirty(Target);
 
         Repaint();
     }
