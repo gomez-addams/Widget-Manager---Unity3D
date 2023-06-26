@@ -24,6 +24,8 @@ https://eeprogrammer.wordpress.com/2016/03/06/unity3d-widgetui-manager/
 <a href="https://www.youtube.com/watch?v=mzMo7oM5Qcw
 " target="_blank"></a>
 
+### Contributors : 
+- @BIGWGY [https://github.com/Ahmed310/Widget-Manager---Unity3D/issues/2]
 
 ### TODO :
 - Custom Inspector for adding tweens to individual UI elements (I named it Actor) [done]
