@@ -6,7 +6,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace eeGames.Actor
+namespace eeGames.Widget
 {
     public enum LoopType
     {

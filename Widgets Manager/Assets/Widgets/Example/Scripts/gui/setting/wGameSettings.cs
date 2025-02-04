@@ -1,28 +1,30 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using eeGames.Widget;
+namespace eeGames.Widget
+{
 
-public class wGameSettings : Widget {
-
-    [SerializeField]
-    private Button m_closeButton;
-
-    private void OnCloseButtonClick()
+    public class wGameSettings : Widget
     {
-        WidgetManager.Instance.Pop(this.Id, false);
-    }
+
+        [SerializeField]
+        private Button m_closeButton;
+
+        private void OnCloseButtonClick()
+        {
+            WidgetManager.Instance.Pop(this.Id, false);
+        }
 
 
-    protected override void Awake()
-    {
-        base.Awake();
-        m_closeButton.onClick.AddListener(OnCloseButtonClick);
-    }
+        protected override void Awake()
+        {
+            base.Awake();
+            m_closeButton.onClick.AddListener(OnCloseButtonClick);
+        }
 
-    void OnDestroy()
-    {
-        m_closeButton.onClick.RemoveListener(OnCloseButtonClick);
-        base.DestroyWidget();
+        void OnDestroy()
+        {
+            m_closeButton.onClick.RemoveListener(OnCloseButtonClick);
+            base.DestroyWidget();
+        }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class DestroyMe : MonoBehaviour {
-
-    public void ItsDestroyTime() 
+namespace eeGames
+{
+    public class DestroyMe : MonoBehaviour
     {
-        Destroy(gameObject);
+        public void ItsDestroyTime()
+        {
+            Destroy(gameObject);
+        }
     }
+
 }

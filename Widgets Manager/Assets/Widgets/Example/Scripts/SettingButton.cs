@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
+using eeGames.Widget;
 
-using eeGames.Actor;
-
-public class SettingButton : MonoBehaviour {
-
-    public Actor ToggleButtonActor;
-    public void OnToggleSet(bool value) 
+namespace eeGames
+{
+    public class SettingButton : MonoBehaviour
     {
-        if (value)
+        public Actor ToggleButtonActor;
+        public void OnToggleSet(bool value)
         {
-            ToggleButtonActor.PerformActing();
-            
+            if (value)
+            {
+                ToggleButtonActor.PerformActing();
+
+            }
+            else
+            {
+                ToggleButtonActor.PerformReverseActing();
+
+            }
         }
-        else
-        {
-            ToggleButtonActor.PerformReverseActing();
-            
-        } 
     }
 }
+

@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
-public class WidgetTween : MonoBehaviour
+namespace eeGames.Widget
 {
-    public Tweens TweenData;
+    [ExecuteInEditMode]
+    public class WidgetTween : MonoBehaviour
+    {
+        public Tweens TweenData;
+    }
 }
+

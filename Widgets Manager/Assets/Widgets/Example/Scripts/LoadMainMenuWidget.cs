@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
-using eeGames.Widget;
 
-public class LoadMainMenuWidget : MonoBehaviour
+namespace eeGames.Widget
 {
-
-	// Use this for initialization
-	void Start () 
+    public class LoadMainMenuWidget : MonoBehaviour
     {
-        // Show MainMenu Widget
-        WidgetManager.Instance.Push(WidgetName.MainMenu);
-	}
+
+        // Use this for initialization
+        void Start()
+        {
+            // Show MainMenu Widget
+            WidgetManager.Instance.Push(WidgetName.MainMenu);
+        }
+    }
 }
