@@ -137,7 +137,7 @@ namespace eeGames.Actor
         {
             if (OnStart != null) OnStart.Invoke();
             var mainWindow = GetComponent<RectTransform>();
-
+            mainWindow.transform.localScale = ActorData.From;
             if (!ActorData.IsOnce)
             {
                 LeanTween.scale(mainWindow, ActorData.To, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { mainWindow.transform.localScale = ActorData.From; ActorData.IsActing = true; });

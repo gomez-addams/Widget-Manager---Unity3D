@@ -96,29 +96,27 @@ public class Actor_Editor : Editor
 //    private static bool _positionFold = false;
     public override void OnInspectorGUI()
     {
-
-//        DrawDefaultInspector();
+        serializedObject.Update(); // Begin tracking changes
+        EditorGUI.BeginChangeCheck();
         foreach (var item in m_actorElements)
         {
             item.Update();
             if (item.Enable)
             {
                 SerializedProperty onStart = serializedObject.FindProperty("OnStart");
-                EditorGUIUtility.LookLikeControls();
+                //EditorGUIUtility.LookLikeControls();
                 EditorGUILayout.PropertyField(onStart);
 
                 SerializedProperty onStop = serializedObject.FindProperty("OnStop");
-                EditorGUIUtility.LookLikeControls();
+                //EditorGUIUtility.LookLikeControls();
                 EditorGUILayout.PropertyField(onStop);
             }
         }
 
-
-
-
-        if (GUI.changed)
-            EditorUtility.SetDirty(Target);
-
-        Repaint();
+        if (EditorGUI.EndChangeCheck())
+        {
+            serializedObject.ApplyModifiedProperties(); // Apply if there are changes
+            EditorUtility.SetDirty(target);
+        }
     }
 }

@@ -21,14 +21,15 @@ public class WidgetEditor : Editor
         m_editorStyle.fontStyle = FontStyle.Bold;
         m_editorStyle.alignment = TextAnchor.UpperCenter;
 
-        
     }
 
 
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();      
-      
+        serializedObject.Update(); // Begin tracking changes
+
+        DrawDefaultInspector();
+
         EditorGUILayout.Space();
         EditorGUILayout.Separator();
         EditorGUILayout.Space();
@@ -48,18 +49,12 @@ public class WidgetEditor : Editor
                
             }
             GUI.color = Color.white;
-            EditorUtility.SetDirty(this);
         }
 
 
-
-
-        // Needed because the enum's keep getting reset
-        if (GUI.changed)
+        if (serializedObject.ApplyModifiedProperties()) // Apply if any changes occur
+        {
             EditorUtility.SetDirty(Target);
-
-    
-
-        //Repaint();
+        }
     }
 }
