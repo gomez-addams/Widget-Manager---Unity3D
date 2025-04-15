@@ -14,7 +14,6 @@ namespace eeGames.Widget
         [SerializeField]
         private List<Widget> m_pooledWidgets;
 
-
         public override void Awake()
         {
             base.Awake();
@@ -54,6 +53,7 @@ namespace eeGames.Widget
                     {
                         m_pooledWidgets.Remove(top);
                         top.DestroyWidget();
+                        m_handler = null;
                     });
                 }
                 else
@@ -102,6 +102,7 @@ namespace eeGames.Widget
                     {
                         m_pooledWidgets.Remove(top);
                         Destroy(top.gameObject);
+                        m_handler = null;
                     });
                 }
                 else
@@ -115,21 +116,21 @@ namespace eeGames.Widget
             m_stack.Remove(top);
         }
 
-      /// <summary>
-      /// Push Widget on top of stack
-      /// </summary>
-      /// <param name="id">Id of Widget</param>
-      /// <param name="isPlayHideTween">Play hide tween of previous widget</param>
-      /// <param name="lastActive">Is previous Widget Visible</param>
-      /// <param name="lastInteractive">Is previous Widget Interactable, in case of small panels</param>
-      /// <param name="firstChild">Set Widget as first child </param>
-        public void Push(WidgetName id, bool isPlayHideTween = true, bool lastActive = false, bool lastInteractive = false, bool firstChild = false)
+        /// <summary>
+        /// Push Widget on top of stack
+        /// </summary>
+        /// <param name="id">Id of Widget</param>
+        /// <param name="isPlayHideTween">Play hide tween of previous widget</param>
+        /// <param name="lastActive">Is previous Widget Visible</param>
+        /// <param name="lastInteractive">Is previous Widget Interactable, in case of small panels</param>
+        /// <param name="firstChild">Set Widget as first child </param>
+        public Widget Push(WidgetName id, bool isPlayHideTween = true, bool lastActive = false, bool lastInteractive = false, bool firstChild = false)
         {
 
-            if (m_stack.Count >= 1) 
-            { 
+            if (m_stack.Count >= 1)
+            {
                 if (!lastActive) { m_stack[0].Hide(isPlayHideTween); }
-                m_stack[0].CanvasGroup.interactable = lastInteractive; 
+                m_stack[0].CanvasGroup.interactable = lastInteractive;
             }
 
             Widget widget = GetPooledWidget(id);
@@ -153,6 +154,7 @@ namespace eeGames.Widget
             widget.Show();
             m_stack.Insert(0, widget);
 
+            return widget;
         }
 
         /// <summary>
@@ -160,7 +162,7 @@ namespace eeGames.Widget
         /// </summary>
         public void UnWindStack()
         {
-            for (int i = 0; i < m_pooledWidgets.Count; i++ )
+            for (int i = 0; i < m_pooledWidgets.Count; i++)
             {
                 m_pooledWidgets[i].DestroyWidget();
             }
@@ -188,6 +190,12 @@ namespace eeGames.Widget
             return m_stack.Find(id => id.Id == name);
 
         }
+
+        public T GetWidget<T>(WidgetName name) where T : Widget
+        {
+            return m_stack.Find(id => id.Id == name) as T;
+
+        }
         #endregion
 
 
@@ -195,7 +203,7 @@ namespace eeGames.Widget
         /// <summary>
         /// These Methods used by this class no concern for user
         /// </summary>
-        
+
         #region Helper Methods 
 
         private Widget GetPooledWidget(WidgetName name)

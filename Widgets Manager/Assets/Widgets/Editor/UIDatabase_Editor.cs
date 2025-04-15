@@ -39,7 +39,7 @@ namespace eeGames.Widget
             window.minSize = new Vector2(800, 400);
 
             //  window.titleContent = new GUIContent("Widget Editor", Resources.Load<Texture2D>("icon")); // not avaliable in unity 5.0
-            window.title = ("Widget Editor");
+            window.titleContent = new GUIContent("Widget Editor");
             window.Show();
         }
 
@@ -61,8 +61,9 @@ namespace eeGames.Widget
 
         void LoadDatabase()
         {
-            m_gameWidgets = (WidgetDatabase)AssetDatabase.LoadAssetAtPath(DATABASE_PATH, typeof(WidgetDatabase));
-
+            //m_gameWidgets = (WidgetDatabase)AssetDatabase.LoadAssetAtPath(DATABASE_PATH, typeof(WidgetDatabase));
+            m_gameWidgets = Resources.Load<WidgetDatabase>("WidgetDatabase");
+            
             if (m_gameWidgets == null)
                 CreateDatabase();
         }

@@ -136,7 +136,7 @@ namespace eeGames.Widget
         private void DoScaleActing() 
         {
             if (OnStart != null) OnStart.Invoke();
-            var mainWindow = GetComponent<RectTransform>();
+            var mainWindow = GetComponent<Transform>().gameObject;
             mainWindow.transform.localScale = ActorData.From;
             if (!ActorData.IsOnce)
             {
@@ -203,7 +203,7 @@ namespace eeGames.Widget
         {
 
             if (OnStart != null) OnStart.Invoke();
-            var mainWindow = GetComponent<RectTransform>();
+            var mainWindow = GetComponent<Transform>();
        
 #if UNITY_EDITOR
             string[] dimension = UnityEditor.UnityStats.screenRes.Split('x');
@@ -229,7 +229,19 @@ namespace eeGames.Widget
             {
                 if (ActorData.LoopType == LoopType.PingPong)
                 {
-                    LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time).setDelay(ActorData.DelayTime).setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount).setEase(ActorData.TweenType).setOnComplete(() => { if (OnStop != null) OnStop.Invoke(); ActorData.IsActing = false; }).setOnStart(() => { ActorData.IsActing = true; });
+                    LeanTween.move(mainWindow.gameObject, (Vector3)pos, ActorData.Time)
+                        .setDelay(ActorData.DelayTime)
+                        .setLoopPingPong(ActorData.IsLoop ? -1 : ActorData.TweenCount)
+                        .setEase(ActorData.TweenType)
+                        .setOnComplete(() => { 
+                            if (OnStop != null) 
+                                OnStop.Invoke(); 
+                            ActorData.IsActing = false; 
+                        })
+                        .setOnStart(() => { 
+                            ActorData.IsActing = true; 
+                        })
+                        .setOnCompleteOnRepeat(true);
                 }
                 else
                 {
@@ -253,7 +265,7 @@ namespace eeGames.Widget
         {
             
             if (OnStart != null) OnStart.Invoke();
-            var mainWindow = GetComponent<RectTransform>();
+            var mainWindow = GetComponent<Transform>();
           
             if (ActorData.IsLoop )
             {

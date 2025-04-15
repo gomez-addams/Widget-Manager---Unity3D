@@ -112,7 +112,8 @@ namespace eeGames.Widget
             EditorGUILayout.Separator();
             EditorGUILayout.Space();
 
-            Target.TweenData.TweenType = (LeanTweenType)EditorGUILayout.EnumPopup("Tween Type", Target.TweenData.TweenType, GUILayout.ExpandWidth(true));
+            Target.TweenData.EaseIn = (LeanTweenType)EditorGUILayout.EnumPopup("Ease In", Target.TweenData.EaseIn, GUILayout.ExpandWidth(true));
+            Target.TweenData.EaseOut = (LeanTweenType)EditorGUILayout.EnumPopup("Ease Out", Target.TweenData.EaseOut, GUILayout.ExpandWidth(true));
             EditorGUILayout.Space();
             EditorGUILayout.Separator();
             EditorGUILayout.Space();

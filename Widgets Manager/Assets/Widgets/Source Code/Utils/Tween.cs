@@ -33,7 +33,8 @@ namespace eeGames.Widget
         public bool IsScale;
         public bool IsRotation;
 
-        public LeanTweenType TweenType = LeanTweenType.easeOutBounce;
+        public LeanTweenType EaseIn = LeanTweenType.easeOutQuad;
+        public LeanTweenType EaseOut = LeanTweenType.easeInQuad;
 
         private LTDescr m_handler = null;
         //    private LTDescr m_handler2 = null;
@@ -61,7 +62,7 @@ namespace eeGames.Widget
             pos.x *= _width;
             pos.y *= _height;
 
-            LTDescr id = LeanTween.move(obj, pos, sPosition.Time).setEase(TweenType);
+            LTDescr id = LeanTween.move(obj, pos, sPosition.Time).setEase(EaseIn);
             //   m_handler = id;
             if (OnTweenEnd != null)
                 id.setOnComplete(OnTweenEnd);
@@ -75,10 +76,10 @@ namespace eeGames.Widget
             newPos.x *= Screen.width;
             newPos.y *= Screen.height;
 
-            LTDescr id = LeanTween.move(obj, newPos, sPosition.Time).setEase(TweenType);
+            LTDescr id = LeanTween.move(obj, newPos, sPosition.Time).setEase(EaseOut);
             m_handler = id;
             if (OnTweenEnd != null)
-                id.setOnComplete(OnTweenEnd);
+                id.setOnComplete(() => { m_handler = null; OnTweenEnd(); });
         }
 
         public void DoScaleTween(GameObject obj, System.Action OnTweenEnd = null, System.Action OnTweenStart = null)
@@ -86,7 +87,7 @@ namespace eeGames.Widget
             if (!IsScale) return;
             var mainWindow = obj.GetComponent<RectTransform>();
             mainWindow.transform.localScale = sScale.From;
-            LTDescr id = LeanTween.scale(mainWindow, sScale.To, sScale.Time).setEase(TweenType);
+            LTDescr id = LeanTween.scale(mainWindow, sScale.To, sScale.Time).setEase(EaseIn);
 
 
             //   m_handler = id;
@@ -98,18 +99,18 @@ namespace eeGames.Widget
         {
             if (!IsScale) return;
             var mainWindow = obj.GetComponent<RectTransform>();
-            LTDescr id = LeanTween.scale(mainWindow, eScale, sScale.Time).setEase(LeanTweenType.easeInBack);
+            LTDescr id = LeanTween.scale(mainWindow, eScale, sScale.Time).setEase(EaseOut);
 
             m_handler = id;
             if (OnTweenEnd != null)
-                id.setOnComplete(OnTweenEnd);
+                id.setOnComplete(() => { m_handler = null; OnTweenEnd(); });
         }
 
         public void DoRotationTween(GameObject obj, System.Action OnTweenEnd = null, System.Action OnTweenStart = null)
         {
             if (!IsRotation) return;
             obj.transform.rotation = Quaternion.Euler(sRotation.From);
-            LTDescr id = LeanTween.rotate(obj, sRotation.To, sRotation.Time).setEase(TweenType);
+            LTDescr id = LeanTween.rotate(obj, sRotation.To, sRotation.Time).setEase(EaseIn);
             //   m_handler = id;
             if (OnTweenEnd != null)
                 id.setOnComplete(OnTweenEnd);
@@ -118,20 +119,20 @@ namespace eeGames.Widget
         public void EndDoRotationTween(GameObject obj, System.Action OnTweenEnd = null, System.Action OnTweenStart = null)
         {
             if (!IsRotation) return;
-            LTDescr id = LeanTween.rotate(obj, eRotation, sRotation.Time).setEase(TweenType);
+            LTDescr id = LeanTween.rotate(obj, eRotation, sRotation.Time).setEase(EaseOut);
 
             m_handler = id;
             if (OnTweenEnd != null)
-                id.setOnComplete(OnTweenEnd);
+                id.setOnComplete(() => { m_handler = null; OnTweenEnd(); });
         }
 
         public LTDescr GetTweenHandler() { return m_handler; }
 
-        public void PerformOnShowTweens(GameObject obj)
+        public void PerformOnShowTweens(GameObject obj, System.Action callBack = null)
         {
-            DoPositionTween(obj);
-            DoScaleTween(obj);
-            DoRotationTween(obj);
+            DoPositionTween(obj, callBack);
+            DoScaleTween(obj, callBack);
+            DoRotationTween(obj, callBack);
         }
         public void PerformOnHideTweens(GameObject obj, System.Action callBack = null)
         {
